@@ -52,6 +52,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 #tooltip .city-list{list-style:none;margin:0;padding:0}
 #tooltip .city-list li{font-size:12px;padding:2px 0 2px 12px;position:relative;color:var(--ink)}
 #tooltip .city-list li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--visited)}
+
+.country-tools{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.country-editor .country-edit-row{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.country-editor.editing .country-edit-row{display:flex}
+.country-picker{min-width:220px;max-width:100%;height:34px;border-radius:8px;border:1px solid var(--line);background:#0f1419;color:var(--ink);padding:0 10px;outline:none}
+.country-picker:focus{border-color:rgba(45,212,168,.6)}
+.country-editor.editing .ctag{padding-right:6px}
+.country-del{border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;padding:0 0 0 5px;margin:0}
+.country-del:hover{color:#f87171}
+.country-note{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 12px}
+.country-note b{color:var(--visited);font-weight:600}
 .country-city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .country-city-card{background:#222d3d;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .country-city-card .cc-head-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
@@ -481,28 +492,173 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 </div>
 <div id="tooltip"></div>
 <script>
-const SOURCE_CITIES = {"CHN": ["北京", "上海", "深圳", "广州", "成都", "西安", "杭州", "重庆", "昆明", "丽江"], "KOR": ["首尔", "水原"], "THA": ["曼谷", "清迈", "普吉"], "VNM": ["河内"], "KHM": ["金边", "暹粒"], "MYS": ["吉隆坡"], "SGP": ["新加坡"], "IDN": ["雅加达", "巴厘岛"], "PHL": ["马尼拉", "宿务", "长滩岛"], "LAO": ["琅勃拉邦"], "BRN": ["斯里巴加湾"], "KAZ": ["阿拉木图"], "UZB": ["塔什干", "撒马尔罕", "布哈拉"], "SAU": ["利雅得"], "GEO": ["第比利斯", "巴统"], "AZE": ["巴库"], "SYR": ["大马士革"], "QAT": ["多哈"], "LBN": ["贝鲁特"], "JOR": ["安曼", "佩特拉", "死海"], "OMN": ["马斯喀特"], "RUS": ["符拉迪沃斯托克"], "FRA": ["巴黎", "马赛", "尼斯"], "DEU": ["慕尼黑", "法兰克福"], "CHE": ["采尔马特"], "POL": ["格但斯克"], "HUN": ["布达佩斯"], "AUT": ["维也纳", "萨尔茨堡"], "LIE": ["瓦杜兹"], "ESP": ["巴塞罗那"], "ITA": ["都灵"], "NOR": ["奥斯陆", "特罗姆瑟"], "EGY": ["开罗"], "AUS": ["墨尔本", "塔斯马尼亚"]};
-const VISITED_CITIES = {"CHN": ["北京", "上海", "深圳"], "KOR": ["首尔", "水原"], "THA": ["曼谷", "清迈", "普吉"], "VNM": ["河内"], "KHM": ["金边", "暹粒"], "MYS": ["吉隆坡"], "SGP": ["新加坡"], "IDN": ["雅加达", "巴厘岛"], "PHL": ["马尼拉", "宿务", "长滩岛"], "LAO": ["琅勃拉邦"], "BRN": ["斯里巴加湾"], "KAZ": ["阿拉木图"], "UZB": ["塔什干", "撒马尔罕", "布哈拉"], "SAU": ["利雅得"], "GEO": ["第比利斯", "巴统"], "AZE": ["巴库"], "SYR": ["大马士革"], "QAT": ["多哈"], "LBN": ["贝鲁特"], "JOR": ["安曼", "佩特拉", "死海"], "OMN": ["马斯喀特"], "RUS": ["符拉迪沃斯托克"], "FRA": ["巴黎", "马赛", "尼斯"], "DEU": ["慕尼黑", "法兰克福"], "CHE": ["采尔马特"], "POL": ["格但斯克"], "HUN": ["布达佩斯"], "AUT": ["维也纳", "萨尔茨堡"], "LIE": ["瓦杜兹"], "ESP": ["巴塞罗那"], "ITA": ["都灵"], "NOR": ["奥斯陆", "特罗姆瑟"], "EGY": ["开罗"], "AUS": ["墨尔本", "塔斯马尼亚"]};
+const COUNTRY_META = [{"a3":"AFG","a2":"AF","name":"阿富汗","continent":"亚洲","flag":"🇦🇫"},{"a3":"ARE","a2":"AE","name":"阿联酋","continent":"亚洲","flag":"🇦🇪"},{"a3":"ARM","a2":"AM","name":"亚美尼亚","continent":"亚洲","flag":"🇦🇲"},{"a3":"AZE","a2":"AZ","name":"阿塞拜疆","continent":"亚洲","flag":"🇦🇿"},{"a3":"BGD","a2":"BD","name":"孟加拉国","continent":"亚洲","flag":"🇧🇩"},{"a3":"BHR","a2":"BH","name":"巴林","continent":"亚洲","flag":"🇧🇭"},{"a3":"BRN","a2":"BN","name":"文莱","continent":"亚洲","flag":"🇧🇳"},{"a3":"BTN","a2":"BT","name":"不丹","continent":"亚洲","flag":"🇧🇹"},{"a3":"KHM","a2":"KH","name":"柬埔寨","continent":"亚洲","flag":"🇰🇭"},{"a3":"CHN","a2":"CN","name":"中国","continent":"亚洲","flag":"🇨🇳"},{"a3":"GEO","a2":"GE","name":"格鲁吉亚","continent":"亚洲","flag":"🇬🇪"},{"a3":"IND","a2":"IN","name":"印度","continent":"亚洲","flag":"🇮🇳"},{"a3":"IDN","a2":"ID","name":"印度尼西亚","continent":"亚洲","flag":"🇮🇩"},{"a3":"IRN","a2":"IR","name":"伊朗","continent":"亚洲","flag":"🇮🇷"},{"a3":"IRQ","a2":"IQ","name":"伊拉克","continent":"亚洲","flag":"🇮🇶"},{"a3":"ISR","a2":"IL","name":"以色列","continent":"亚洲","flag":"🇮🇱"},{"a3":"JPN","a2":"JP","name":"日本","continent":"亚洲","flag":"🇯🇵"},{"a3":"JOR","a2":"JO","name":"约旦","continent":"亚洲","flag":"🇯🇴"},{"a3":"KAZ","a2":"KZ","name":"哈萨克斯坦","continent":"亚洲","flag":"🇰🇿"},{"a3":"KWT","a2":"KW","name":"科威特","continent":"亚洲","flag":"🇰🇼"},{"a3":"KGZ","a2":"KG","name":"吉尔吉斯斯坦","continent":"亚洲","flag":"🇰🇬"},{"a3":"LAO","a2":"LA","name":"老挝","continent":"亚洲","flag":"🇱🇦"},{"a3":"LBN","a2":"LB","name":"黎巴嫩","continent":"亚洲","flag":"🇱🇧"},{"a3":"MYS","a2":"MY","name":"马来西亚","continent":"亚洲","flag":"🇲🇾"},{"a3":"MDV","a2":"MV","name":"马尔代夫","continent":"亚洲","flag":"🇲🇻"},{"a3":"MNG","a2":"MN","name":"蒙古","continent":"亚洲","flag":"🇲🇳"},{"a3":"MMR","a2":"MM","name":"缅甸","continent":"亚洲","flag":"🇲🇲"},{"a3":"NPL","a2":"NP","name":"尼泊尔","continent":"亚洲","flag":"🇳🇵"},{"a3":"PRK","a2":"KP","name":"朝鲜","continent":"亚洲","flag":"🇰🇵"},{"a3":"OMN","a2":"OM","name":"阿曼","continent":"亚洲","flag":"🇴🇲"},{"a3":"PAK","a2":"PK","name":"巴基斯坦","continent":"亚洲","flag":"🇵🇰"},{"a3":"PSE","a2":"PS","name":"巴勒斯坦","continent":"亚洲","flag":"🇵🇸"},{"a3":"PHL","a2":"PH","name":"菲律宾","continent":"亚洲","flag":"🇵🇭"},{"a3":"QAT","a2":"QA","name":"卡塔尔","continent":"亚洲","flag":"🇶🇦"},{"a3":"KOR","a2":"KR","name":"韩国","continent":"亚洲","flag":"🇰🇷"},{"a3":"RUS","a2":"RU","name":"俄罗斯","continent":"亚洲","flag":"🇷🇺"},{"a3":"SAU","a2":"SA","name":"沙特阿拉伯","continent":"亚洲","flag":"🇸🇦"},{"a3":"SGP","a2":"SG","name":"新加坡","continent":"亚洲","flag":"🇸🇬"},{"a3":"LKA","a2":"LK","name":"斯里兰卡","continent":"亚洲","flag":"🇱🇰"},{"a3":"SYR","a2":"SY","name":"叙利亚","continent":"亚洲","flag":"🇸🇾"},{"a3":"TJK","a2":"TJ","name":"塔吉克斯坦","continent":"亚洲","flag":"🇹🇯"},{"a3":"THA","a2":"TH","name":"泰国","continent":"亚洲","flag":"🇹🇭"},{"a3":"TLS","a2":"TL","name":"东帝汶","continent":"亚洲","flag":"🇹🇱"},{"a3":"TUR","a2":"TR","name":"土耳其","continent":"亚洲","flag":"🇹🇷"},{"a3":"TKM","a2":"TM","name":"土库曼斯坦","continent":"亚洲","flag":"🇹🇲"},{"a3":"VNM","a2":"VN","name":"越南","continent":"亚洲","flag":"🇻🇳"},{"a3":"UZB","a2":"UZ","name":"乌兹别克斯坦","continent":"亚洲","flag":"🇺🇿"},{"a3":"YEM","a2":"YE","name":"也门","continent":"亚洲","flag":"🇾🇪"},{"a3":"TWN","a2":"TW","name":"台湾","continent":"亚洲","flag":"🇹🇼"},{"a3":"ALB","a2":"AL","name":"阿尔巴尼亚","continent":"欧洲","flag":"🇦🇱"},{"a3":"AND","a2":"AD","name":"安道尔","continent":"欧洲","flag":"🇦🇩"},{"a3":"AUT","a2":"AT","name":"奥地利","continent":"欧洲","flag":"🇦🇹"},{"a3":"BLR","a2":"BY","name":"白俄罗斯","continent":"欧洲","flag":"🇧🇾"},{"a3":"BEL","a2":"BE","name":"比利时","continent":"欧洲","flag":"🇧🇪"},{"a3":"BIH","a2":"BA","name":"波黑","continent":"欧洲","flag":"🇧🇦"},{"a3":"BGR","a2":"BG","name":"保加利亚","continent":"欧洲","flag":"🇧🇬"},{"a3":"HRV","a2":"HR","name":"克罗地亚","continent":"欧洲","flag":"🇭🇷"},{"a3":"CYP","a2":"CY","name":"塞浦路斯","continent":"欧洲","flag":"🇨🇾"},{"a3":"CZE","a2":"CZ","name":"捷克","continent":"欧洲","flag":"🇨🇿"},{"a3":"DNK","a2":"DK","name":"丹麦","continent":"欧洲","flag":"🇩🇰"},{"a3":"EST","a2":"EE","name":"爱沙尼亚","continent":"欧洲","flag":"🇪🇪"},{"a3":"FIN","a2":"FI","name":"芬兰","continent":"欧洲","flag":"🇫🇮"},{"a3":"FRA","a2":"FR","name":"法国","continent":"欧洲","flag":"🇫🇷"},{"a3":"DEU","a2":"DE","name":"德国","continent":"欧洲","flag":"🇩🇪"},{"a3":"GRC","a2":"GR","name":"希腊","continent":"欧洲","flag":"🇬🇷"},{"a3":"HUN","a2":"HU","name":"匈牙利","continent":"欧洲","flag":"🇭🇺"},{"a3":"ISL","a2":"IS","name":"冰岛","continent":"欧洲","flag":"🇮🇸"},{"a3":"IRL","a2":"IE","name":"爱尔兰","continent":"欧洲","flag":"🇮🇪"},{"a3":"ITA","a2":"IT","name":"意大利","continent":"欧洲","flag":"🇮🇹"},{"a3":"LVA","a2":"LV","name":"拉脱维亚","continent":"欧洲","flag":"🇱🇻"},{"a3":"LIE","a2":"LI","name":"列支敦士登","continent":"欧洲","flag":"🇱🇮"},{"a3":"LTU","a2":"LT","name":"立陶宛","continent":"欧洲","flag":"🇱🇹"},{"a3":"LUX","a2":"LU","name":"卢森堡","continent":"欧洲","flag":"🇱🇺"},{"a3":"MLT","a2":"MT","name":"马耳他","continent":"欧洲","flag":"🇲🇹"},{"a3":"MDA","a2":"MD","name":"摩尔多瓦","continent":"欧洲","flag":"🇲🇩"},{"a3":"MCO","a2":"MC","name":"摩纳哥","continent":"欧洲","flag":"🇲🇨"},{"a3":"MNE","a2":"ME","name":"黑山","continent":"欧洲","flag":"🇲🇪"},{"a3":"NLD","a2":"NL","name":"荷兰","continent":"欧洲","flag":"🇳🇱"},{"a3":"MKD","a2":"MK","name":"北马其顿","continent":"欧洲","flag":"🇲🇰"},{"a3":"NOR","a2":"NO","name":"挪威","continent":"欧洲","flag":"🇳🇴"},{"a3":"POL","a2":"PL","name":"波兰","continent":"欧洲","flag":"🇵🇱"},{"a3":"PRT","a2":"PT","name":"葡萄牙","continent":"欧洲","flag":"🇵🇹"},{"a3":"ROU","a2":"RO","name":"罗马尼亚","continent":"欧洲","flag":"🇷🇴"},{"a3":"SMR","a2":"SM","name":"圣马力诺","continent":"欧洲","flag":"🇸🇲"},{"a3":"SRB","a2":"RS","name":"塞尔维亚","continent":"欧洲","flag":"🇷🇸"},{"a3":"SVK","a2":"SK","name":"斯洛伐克","continent":"欧洲","flag":"🇸🇰"},{"a3":"SVN","a2":"SI","name":"斯洛文尼亚","continent":"欧洲","flag":"🇸🇮"},{"a3":"ESP","a2":"ES","name":"西班牙","continent":"欧洲","flag":"🇪🇸"},{"a3":"SWE","a2":"SE","name":"瑞典","continent":"欧洲","flag":"🇸🇪"},{"a3":"CHE","a2":"CH","name":"瑞士","continent":"欧洲","flag":"🇨🇭"},{"a3":"UKR","a2":"UA","name":"乌克兰","continent":"欧洲","flag":"🇺🇦"},{"a3":"GBR","a2":"GB","name":"英国","continent":"欧洲","flag":"🇬🇧"},{"a3":"VAT","a2":"VA","name":"梵蒂冈","continent":"欧洲","flag":"🇻🇦"},{"a3":"XKX","a2":"XK","name":"科索沃","continent":"欧洲","flag":"🇽🇰"},{"a3":"DZA","a2":"DZ","name":"阿尔及利亚","continent":"非洲","flag":"🇩🇿"},{"a3":"AGO","a2":"AO","name":"安哥拉","continent":"非洲","flag":"🇦🇴"},{"a3":"BEN","a2":"BJ","name":"贝宁","continent":"非洲","flag":"🇧🇯"},{"a3":"BWA","a2":"BW","name":"博茨瓦纳","continent":"非洲","flag":"🇧🇼"},{"a3":"BFA","a2":"BF","name":"布基纳法索","continent":"非洲","flag":"🇧🇫"},{"a3":"BDI","a2":"BI","name":"布隆迪","continent":"非洲","flag":"🇧🇮"},{"a3":"CPV","a2":"CV","name":"佛得角","continent":"非洲","flag":"🇨🇻"},{"a3":"CMR","a2":"CM","name":"喀麦隆","continent":"非洲","flag":"🇨🇲"},{"a3":"CAF","a2":"CF","name":"中非","continent":"非洲","flag":"🇨🇫"},{"a3":"TCD","a2":"TD","name":"乍得","continent":"非洲","flag":"🇹🇩"},{"a3":"COM","a2":"KM","name":"科摩罗","continent":"非洲","flag":"🇰🇲"},{"a3":"COG","a2":"CG","name":"刚果（布）","continent":"非洲","flag":"🇨🇬"},{"a3":"COD","a2":"CD","name":"刚果（金）","continent":"非洲","flag":"🇨🇩"},{"a3":"CIV","a2":"CI","name":"科特迪瓦","continent":"非洲","flag":"🇨🇮"},{"a3":"DJI","a2":"DJ","name":"吉布提","continent":"非洲","flag":"🇩🇯"},{"a3":"EGY","a2":"EG","name":"埃及","continent":"非洲","flag":"🇪🇬"},{"a3":"GNQ","a2":"GQ","name":"赤道几内亚","continent":"非洲","flag":"🇬🇶"},{"a3":"ERI","a2":"ER","name":"厄立特里亚","continent":"非洲","flag":"🇪🇷"},{"a3":"SWZ","a2":"SZ","name":"斯威士兰","continent":"非洲","flag":"🇸🇿"},{"a3":"ETH","a2":"ET","name":"埃塞俄比亚","continent":"非洲","flag":"🇪🇹"},{"a3":"GAB","a2":"GA","name":"加蓬","continent":"非洲","flag":"🇬🇦"},{"a3":"GMB","a2":"GM","name":"冈比亚","continent":"非洲","flag":"🇬🇲"},{"a3":"GHA","a2":"GH","name":"加纳","continent":"非洲","flag":"🇬🇭"},{"a3":"GIN","a2":"GN","name":"几内亚","continent":"非洲","flag":"🇬🇳"},{"a3":"GNB","a2":"GW","name":"几内亚比绍","continent":"非洲","flag":"🇬🇼"},{"a3":"KEN","a2":"KE","name":"肯尼亚","continent":"非洲","flag":"🇰🇪"},{"a3":"LSO","a2":"LS","name":"莱索托","continent":"非洲","flag":"🇱🇸"},{"a3":"LBR","a2":"LR","name":"利比里亚","continent":"非洲","flag":"🇱🇷"},{"a3":"LBY","a2":"LY","name":"利比亚","continent":"非洲","flag":"🇱🇾"},{"a3":"MDG","a2":"MG","name":"马达加斯加","continent":"非洲","flag":"🇲🇬"},{"a3":"MWI","a2":"MW","name":"马拉维","continent":"非洲","flag":"🇲🇼"},{"a3":"MLI","a2":"ML","name":"马里","continent":"非洲","flag":"🇲🇱"},{"a3":"MRT","a2":"MR","name":"毛里塔尼亚","continent":"非洲","flag":"🇲🇷"},{"a3":"MUS","a2":"MU","name":"毛里求斯","continent":"非洲","flag":"🇲🇺"},{"a3":"MAR","a2":"MA","name":"摩洛哥","continent":"非洲","flag":"🇲🇦"},{"a3":"MOZ","a2":"MZ","name":"莫桑比克","continent":"非洲","flag":"🇲🇿"},{"a3":"NAM","a2":"NA","name":"纳米比亚","continent":"非洲","flag":"🇳🇦"},{"a3":"NER","a2":"NE","name":"尼日尔","continent":"非洲","flag":"🇳🇪"},{"a3":"NGA","a2":"NG","name":"尼日利亚","continent":"非洲","flag":"🇳🇬"},{"a3":"RWA","a2":"RW","name":"卢旺达","continent":"非洲","flag":"🇷🇼"},{"a3":"STP","a2":"ST","name":"圣多美和普林西比","continent":"非洲","flag":"🇸🇹"},{"a3":"SEN","a2":"SN","name":"塞内加尔","continent":"非洲","flag":"🇸🇳"},{"a3":"SYC","a2":"SC","name":"塞舌尔","continent":"非洲","flag":"🇸🇨"},{"a3":"SLE","a2":"SL","name":"塞拉利昂","continent":"非洲","flag":"🇸🇱"},{"a3":"SOM","a2":"SO","name":"索马里","continent":"非洲","flag":"🇸🇴"},{"a3":"ZAF","a2":"ZA","name":"南非","continent":"非洲","flag":"🇿🇦"},{"a3":"SSD","a2":"SS","name":"南苏丹","continent":"非洲","flag":"🇸🇸"},{"a3":"SDN","a2":"SD","name":"苏丹","continent":"非洲","flag":"🇸🇩"},{"a3":"TZA","a2":"TZ","name":"坦桑尼亚","continent":"非洲","flag":"🇹🇿"},{"a3":"TGO","a2":"TG","name":"多哥","continent":"非洲","flag":"🇹🇬"},{"a3":"TUN","a2":"TN","name":"突尼斯","continent":"非洲","flag":"🇹🇳"},{"a3":"UGA","a2":"UG","name":"乌干达","continent":"非洲","flag":"🇺🇬"},{"a3":"ZMB","a2":"ZM","name":"赞比亚","continent":"非洲","flag":"🇿🇲"},{"a3":"ZWE","a2":"ZW","name":"津巴布韦","continent":"非洲","flag":"🇿🇼"},{"a3":"AUS","a2":"AU","name":"澳大利亚","continent":"大洋洲","flag":"🇦🇺"},{"a3":"FJI","a2":"FJ","name":"斐济","continent":"大洋洲","flag":"🇫🇯"},{"a3":"KIR","a2":"KI","name":"基里巴斯","continent":"大洋洲","flag":"🇰🇮"},{"a3":"MHL","a2":"MH","name":"马绍尔群岛","continent":"大洋洲","flag":"🇲🇭"},{"a3":"FSM","a2":"FM","name":"密克罗尼西亚","continent":"大洋洲","flag":"🇫🇲"},{"a3":"NRU","a2":"NR","name":"瑙鲁","continent":"大洋洲","flag":"🇳🇷"},{"a3":"NZL","a2":"NZ","name":"新西兰","continent":"大洋洲","flag":"🇳🇿"},{"a3":"PLW","a2":"PW","name":"帕劳","continent":"大洋洲","flag":"🇵🇼"},{"a3":"PNG","a2":"PG","name":"巴布亚新几内亚","continent":"大洋洲","flag":"🇵🇬"},{"a3":"WSM","a2":"WS","name":"萨摩亚","continent":"大洋洲","flag":"🇼🇸"},{"a3":"SLB","a2":"SB","name":"所罗门群岛","continent":"大洋洲","flag":"🇸🇧"},{"a3":"TON","a2":"TO","name":"汤加","continent":"大洋洲","flag":"🇹🇴"},{"a3":"TUV","a2":"TV","name":"图瓦卢","continent":"大洋洲","flag":"🇹🇻"},{"a3":"VUT","a2":"VU","name":"瓦努阿图","continent":"大洋洲","flag":"🇻🇺"},{"a3":"ATG","a2":"AG","name":"安提瓜和巴布达","continent":"北美洲","flag":"🇦🇬"},{"a3":"BHS","a2":"BS","name":"巴哈马","continent":"北美洲","flag":"🇧🇸"},{"a3":"BRB","a2":"BB","name":"巴巴多斯","continent":"北美洲","flag":"🇧🇧"},{"a3":"BLZ","a2":"BZ","name":"伯利兹","continent":"北美洲","flag":"🇧🇿"},{"a3":"CAN","a2":"CA","name":"加拿大","continent":"北美洲","flag":"🇨🇦"},{"a3":"CRI","a2":"CR","name":"哥斯达黎加","continent":"北美洲","flag":"🇨🇷"},{"a3":"CUB","a2":"CU","name":"古巴","continent":"北美洲","flag":"🇨🇺"},{"a3":"DMA","a2":"DM","name":"多米尼克","continent":"北美洲","flag":"🇩🇲"},{"a3":"DOM","a2":"DO","name":"多米尼加","continent":"北美洲","flag":"🇩🇴"},{"a3":"SLV","a2":"SV","name":"萨尔瓦多","continent":"北美洲","flag":"🇸🇻"},{"a3":"GRD","a2":"GD","name":"格林纳达","continent":"北美洲","flag":"🇬🇩"},{"a3":"GTM","a2":"GT","name":"危地马拉","continent":"北美洲","flag":"🇬🇹"},{"a3":"HTI","a2":"HT","name":"海地","continent":"北美洲","flag":"🇭🇹"},{"a3":"HND","a2":"HN","name":"洪都拉斯","continent":"北美洲","flag":"🇭🇳"},{"a3":"JAM","a2":"JM","name":"牙买加","continent":"北美洲","flag":"🇯🇲"},{"a3":"MEX","a2":"MX","name":"墨西哥","continent":"北美洲","flag":"🇲🇽"},{"a3":"NIC","a2":"NI","name":"尼加拉瓜","continent":"北美洲","flag":"🇳🇮"},{"a3":"PAN","a2":"PA","name":"巴拿马","continent":"北美洲","flag":"🇵🇦"},{"a3":"KNA","a2":"KN","name":"圣基茨和尼维斯","continent":"北美洲","flag":"🇰🇳"},{"a3":"LCA","a2":"LC","name":"圣卢西亚","continent":"北美洲","flag":"🇱🇨"},{"a3":"VCT","a2":"VC","name":"圣文森特和格林纳丁斯","continent":"北美洲","flag":"🇻🇨"},{"a3":"TTO","a2":"TT","name":"特立尼达和多巴哥","continent":"北美洲","flag":"🇹🇹"},{"a3":"USA","a2":"US","name":"美国","continent":"北美洲","flag":"🇺🇸"},{"a3":"ARG","a2":"AR","name":"阿根廷","continent":"南美洲","flag":"🇦🇷"},{"a3":"BOL","a2":"BO","name":"玻利维亚","continent":"南美洲","flag":"🇧🇴"},{"a3":"BRA","a2":"BR","name":"巴西","continent":"南美洲","flag":"🇧🇷"},{"a3":"CHL","a2":"CL","name":"智利","continent":"南美洲","flag":"🇨🇱"},{"a3":"COL","a2":"CO","name":"哥伦比亚","continent":"南美洲","flag":"🇨🇴"},{"a3":"ECU","a2":"EC","name":"厄瓜多尔","continent":"南美洲","flag":"🇪🇨"},{"a3":"GUY","a2":"GY","name":"圭亚那","continent":"南美洲","flag":"🇬🇾"},{"a3":"PRY","a2":"PY","name":"巴拉圭","continent":"南美洲","flag":"🇵🇾"},{"a3":"PER","a2":"PE","name":"秘鲁","continent":"南美洲","flag":"🇵🇪"},{"a3":"SUR","a2":"SR","name":"苏里南","continent":"南美洲","flag":"🇸🇷"},{"a3":"URY","a2":"UY","name":"乌拉圭","continent":"南美洲","flag":"🇺🇾"},{"a3":"VEN","a2":"VE","name":"委内瑞拉","continent":"南美洲","flag":"🇻🇪"}];
+const SOURCE_CITIES = {"CHN":["北京","上海","深圳","广州","成都","西安","杭州","重庆","昆明","丽江"],"KOR":["首尔","水原"],"THA":["曼谷","清迈","普吉"],"VNM":["河内"],"KHM":["金边","暹粒"],"MYS":["吉隆坡"],"SGP":["新加坡"],"IDN":["雅加达","巴厘岛"],"PHL":["马尼拉","宿务","长滩岛"],"LAO":["琅勃拉邦"],"BRN":["斯里巴加湾"],"KAZ":["阿拉木图"],"UZB":["塔什干","撒马尔罕","布哈拉"],"SAU":["利雅得"],"GEO":["第比利斯","巴统"],"AZE":["巴库"],"SYR":["大马士革"],"QAT":["多哈"],"LBN":["贝鲁特"],"JOR":["安曼","佩特拉","死海"],"OMN":["马斯喀特"],"RUS":["符拉迪沃斯托克"],"FRA":["巴黎","马赛","尼斯"],"DEU":["慕尼黑","法兰克福"],"CHE":["采尔马特"],"POL":["格但斯克"],"HUN":["布达佩斯"],"AUT":["维也纳","萨尔茨堡"],"LIE":["瓦杜兹"],"ESP":["巴塞罗那"],"ITA":["都灵"],"NOR":["奥斯陆","特罗姆瑟"],"EGY":["开罗"],"AUS":["墨尔本","塔斯马尼亚"]};
+const VISITED_CITIES = {"CHN":["北京","上海","深圳"],"KOR":["首尔","水原"],"THA":["曼谷","清迈","普吉"],"VNM":["河内"],"KHM":["金边","暹粒"],"MYS":["吉隆坡"],"SGP":["新加坡"],"IDN":["雅加达","巴厘岛"],"PHL":["马尼拉","宿务","长滩岛"],"LAO":["琅勃拉邦"],"BRN":["斯里巴加湾"],"KAZ":["阿拉木图"],"UZB":["塔什干","撒马尔罕","布哈拉"],"SAU":["利雅得"],"GEO":["第比利斯","巴统"],"AZE":["巴库"],"SYR":["大马士革"],"QAT":["多哈"],"LBN":["贝鲁特"],"JOR":["安曼","佩特拉","死海"],"OMN":["马斯喀特"],"RUS":["符拉迪沃斯托克"],"FRA":["巴黎","马赛","尼斯"],"DEU":["慕尼黑","法兰克福"],"CHE":["采尔马特"],"POL":["格但斯克"],"HUN":["布达佩斯"],"AUT":["维也纳","萨尔茨堡"],"LIE":["瓦杜兹"],"ESP":["巴塞罗那"],"ITA":["都灵"],"NOR":["奥斯陆","特罗姆瑟"],"EGY":["开罗"],"AUS":["墨尔本","塔斯马尼亚"]};
+const CONTINENT_ORDER = ["亚洲","欧洲","非洲","大洋洲","北美洲","南美洲"];
+const CONTINENT_COLORS = {"亚洲":"#1a6b5a","欧洲":"#2c5a8a","非洲":"#8b6914","大洋洲":"#5a4a8a","北美洲":"#8a3a3a","南美洲":"#3a7a4a"};
+const TOTAL_COUNTRIES = COUNTRY_META.length;
+const DEFAULT_VISITED = Object.keys(SOURCE_CITIES);
+const USER_COUNTRIES_KEY = "travel-footprint-user-countries";
 const USER_CITIES_KEY = "travel-footprint-user-cities";
 const REMOVED_CITIES_KEY = "travel-footprint-removed-cities";
 const tip = document.getElementById("tooltip");
 const editor = document.getElementById("cities-editor");
 const editBtn = document.getElementById("cities-edit-btn");
 const refreshBtn = document.getElementById("cities-refresh-btn");
+const countryByA3 = Object.fromEntries(COUNTRY_META.map(c => [c.a3, c]));
 let editing = false;
 let draft = {};
+let countryEditing = false;
+let countryDraft = [];
+let visitedSet = new Set();
+let countriesEditor = null;
+let countryEditBtn = null;
+let countryRefreshBtn = null;
+let countryAddSelect = null;
+let countryAddBtn = null;
+let visitedTitle = null;
+let visitedCard = null;
+let todoTitle = null;
+let todoCard = null;
+let progressCards = [];
 
-function loadJSON(key) {
-  try { return JSON.parse(localStorage.getItem(key) || "{}"); }
-  catch (e) { return {}; }
+function loadJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) { return fallback; }
 }
 function saveJSON(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
-
-function loadUserCities() { return loadJSON(USER_CITIES_KEY); }
-function loadRemovedCities() { return loadJSON(REMOVED_CITIES_KEY); }
-
+function loadUserCities() { return loadJSON(USER_CITIES_KEY, {}); }
+function loadRemovedCities() { return loadJSON(REMOVED_CITIES_KEY, {}); }
+function loadVisitedCountries() {
+  const saved = loadJSON(USER_COUNTRIES_KEY, null);
+  if (!Array.isArray(saved)) return DEFAULT_VISITED.slice();
+  const valid = saved.filter(a3 => countryByA3[a3]);
+  return valid.length ? Array.from(new Set(valid)) : DEFAULT_VISITED.slice();
+}
+function saveVisitedCountries(list) { saveJSON(USER_COUNTRIES_KEY, Array.from(new Set(list)).filter(a3 => countryByA3[a3])); }
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function pct(part, total) { return total ? (part / total * 100) : 0; }
+function pctText(part, total) { return pct(part, total).toFixed(1) + "%"; }
+function countryLabel(a3) {
+  const c = countryByA3[a3];
+  return c ? c.flag + " " + c.name : a3;
+}
+function groupedA3(list) {
+  const set = new Set(list);
+  return CONTINENT_ORDER.map(continent => {
+    const countries = COUNTRY_META.filter(c => c.continent === continent && set.has(c.a3));
+    return { continent, countries };
+  }).filter(group => group.countries.length);
+}
+function allByContinent() {
+  return CONTINENT_ORDER.map(continent => {
+    const countries = COUNTRY_META.filter(c => c.continent === continent);
+    return { continent, countries };
+  });
+}
+function sectionByTitle(prefix) {
+  return Array.from(document.querySelectorAll("section.sec")).find(sec => (sec.querySelector(".sec-title")?.textContent || "").trim().startsWith(prefix));
+}
+function initDomRefs() {
+  const visitedSection = sectionByTitle("已探索国家");
+  const todoSection = sectionByTitle("待探索国家");
+  const progressSection = sectionByTitle("探索进度");
+  visitedTitle = visitedSection?.querySelector(".sec-title");
+  visitedCard = visitedSection?.querySelector(".card");
+  todoTitle = todoSection?.querySelector(".sec-title");
+  todoCard = todoSection?.querySelector(".card");
+  progressCards = Array.from(progressSection?.querySelectorAll(".card") || []);
+  if (visitedTitle && !document.getElementById("countries-edit-btn")) {
+    const actions = document.createElement("span");
+    actions.className = "country-tools";
+    actions.innerHTML = '<button type="button" id="countries-edit-btn" class="sec-btn">编辑</button><button type="button" id="countries-refresh-btn" class="sec-btn primary">刷新</button>';
+    visitedTitle.appendChild(actions);
+  }
+  countryEditBtn = document.getElementById("countries-edit-btn");
+  countryRefreshBtn = document.getElementById("countries-refresh-btn");
+}
+function refreshVisitedSet() { visitedSet = new Set(loadVisitedCountries()); }
+function activeVisitedList() { return countryEditing ? countryDraft.slice() : Array.from(visitedSet); }
+function currentVisitedForCities() { return activeVisitedList().filter(a3 => countryByA3[a3]); }
+function renderCountryTags(group, mode) {
+  const editingDel = countryEditing && mode === "visited";
+  return '<div class="clist-block"><h4>' + esc(group.continent) + ' <small>' + group.countries.length + ' 国</small></h4><div class="ctags">' +
+    group.countries.map(c => '<span class="ctag ' + (mode === "visited" ? 'visited-tag' : 'todo-tag') + '" data-a3="' + esc(c.a3) + '">' + esc(c.flag + " " + c.name) + (editingDel ? '<button type="button" class="country-del" title="删除国家" aria-label="删除国家">×</button>' : '') + '</span>').join('') +
+    '</div></div>';
+}
+function renderVisitedCountriesPanel() {
+  const visited = activeVisitedList();
+  const groups = groupedA3(visited);
+  if (visitedTitle) visitedTitle.childNodes[0].nodeValue = '已探索国家（' + visited.length + '）';
+  if (!visitedCard) return;
+  const visitedHtml = groups.length ? groups.map(g => renderCountryTags(g, "visited")).join("\n") : '<p class="country-note">暂无已探索国家，点击【编辑】添加。</p>';
+  const available = COUNTRY_META.filter(c => !visited.includes(c.a3));
+  visitedCard.innerHTML = '<div id="countries-editor" class="country-editor' + (countryEditing ? ' editing' : '') + '">' +
+    '<p class="country-note">默认使用发布者提供的国家列表。点击【编辑】可添加或删除国家，点击【刷新】后会保存到当前浏览器，并同步更新地图、统计、待探索国家和城市面板。</p>' +
+    '<div class="country-edit-row"><select id="country-add-select" class="country-picker" aria-label="选择要添加的国家">' +
+    '<option value="">选择要添加的国家</option>' + available.map(c => '<option value="' + esc(c.a3) + '">' + esc(c.flag + " " + c.name + " · " + c.continent) + '</option>').join('') +
+    '</select><button type="button" id="country-add-btn" class="sec-btn primary">添加</button></div>' + visitedHtml + '</div>';
+  countriesEditor = document.getElementById("countries-editor");
+  countryAddSelect = document.getElementById("country-add-select");
+  countryAddBtn = document.getElementById("country-add-btn");
+}
+function renderTodoCountriesPanel() {
+  const visited = new Set(activeVisitedList());
+  const todo = COUNTRY_META.filter(c => !visited.has(c.a3));
+  const groups = allByContinent().map(g => ({ continent: g.continent, countries: g.countries.filter(c => !visited.has(c.a3)) })).filter(g => g.countries.length);
+  if (todoTitle) todoTitle.textContent = '待探索国家（' + todo.length + '）';
+  if (todoCard) todoCard.innerHTML = groups.map(g => renderCountryTags(g, "todo")).join("\n");
+}
+function renderMap() {
+  const visited = new Set(activeVisitedList());
+  document.querySelectorAll("#world-map path, #world-map circle.micro").forEach(el => {
+    const a3 = el.dataset.a3 || "";
+    const isVisited = visited.has(a3);
+    el.classList.toggle("visited", isVisited);
+    el.classList.toggle("unvisited", !isVisited);
+    const c = countryByA3[a3];
+    if (c) el.dataset.name = (isVisited ? c.flag + " " : "") + c.name;
+  });
+  const legends = document.querySelectorAll(".map-legend .legend-item");
+  if (legends[0]) legends[0].innerHTML = '<span class="legend-swatch v"></span>已探索（' + visited.size + ' 国）';
+  if (legends[1]) legends[1].innerHTML = '<span class="legend-swatch u"></span>待探索（' + (TOTAL_COUNTRIES - visited.size) + ' 国）';
+}
+function continentStats(list) {
+  const visited = new Set(list);
+  return CONTINENT_ORDER.map(continent => {
+    const all = COUNTRY_META.filter(c => c.continent === continent);
+    const count = all.filter(c => visited.has(c.a3)).length;
+    return { continent, total: all.length, count, percent: pct(count, all.length), color: CONTINENT_COLORS[continent] };
+  });
+}
+function renderMetrics() {
+  const visited = activeVisitedList();
+  const total = TOTAL_COUNTRIES;
+  const count = visited.length;
+  const todo = total - count;
+  const coverage = pct(count, total);
+  const nums = document.querySelectorAll(".metric .num");
+  if (nums[0]) nums[0].textContent = total;
+  if (nums[1]) nums[1].textContent = count;
+  if (nums[2]) nums[2].textContent = todo;
+  if (nums[3]) nums[3].textContent = coverage.toFixed(1) + "%";
+  const donutBig = document.querySelector(".donut-center .big");
+  if (donutBig) donutBig.textContent = coverage.toFixed(1) + "%";
+  const ring = document.querySelector(".donut svg circle:nth-child(2)");
+  if (ring) ring.setAttribute("stroke-dashoffset", (314.16 * (1 - coverage / 100)).toFixed(2));
+  const asiaAmericas = continentStats(visited);
+  const north = asiaAmericas.find(s => s.continent === "北美洲")?.count || 0;
+  const south = asiaAmericas.find(s => s.continent === "南美洲")?.count || 0;
+  const donutLegend = document.querySelector(".donut-legend");
+  if (donutLegend) donutLegend.innerHTML = '<div>✅ 已探索 <b>' + count + '</b> 国</div><div>⬜ 待探索 <b>' + todo + '</b> 国</div><div>🎯 北美/南美 <b>' + (north || south ? north + '/' + south : '0%') + '</b></div>';
+  if (progressCards[1]) {
+    progressCards[1].innerHTML = continentStats(visited).map(s => '<div class="cont-row"><div class="cont-label"><span class="dot" style="background:' + s.color + '"></span>' + esc(s.continent) + '</div><div class="cont-bar-wrap"><div class="cont-bar" style="width:' + s.percent.toFixed(1) + '%;background:' + s.color + '"></div></div><div class="cont-stats"><b>' + s.count + '</b>/' + s.total + ' <span class="pct">' + s.percent.toFixed(1) + '%</span></div></div>').join("\n");
+  }
+}
 function isWikiCity(a3, city) { return (SOURCE_CITIES[a3] || []).includes(city); }
-
 function effectiveCities(a3) {
   const removed = new Set(loadRemovedCities()[a3] || []);
   const base = (SOURCE_CITIES[a3] || []).filter(c => !removed.has(c));
@@ -510,37 +666,33 @@ function effectiveCities(a3) {
   const extra = (loadUserCities()[a3] || []).filter(c => !seen.has(c));
   return base.concat(extra);
 }
-
 function syncMapCities() {
-  Object.keys(SOURCE_CITIES).forEach(a3 => {
-    VISITED_CITIES[a3] = effectiveCities(a3).slice(0, 3);
-  });
+  Object.keys(VISITED_CITIES).forEach(a3 => delete VISITED_CITIES[a3]);
+  currentVisitedForCities().forEach(a3 => { VISITED_CITIES[a3] = effectiveCities(a3).slice(0, 3); });
 }
-
-function esc(s) {
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
-}
-
 function cityChipHtml(a3, city) {
   const cls = isWikiCity(a3, city) ? "wiki" : "user";
-  const del = editing
-    ? '<button type="button" class="city-del" title="删除" aria-label="删除">×</button>'
-    : "";
+  const del = editing ? '<button type="button" class="city-del" title="删除" aria-label="删除">×</button>' : "";
   return `<span class="city-chip" data-source="${cls}" data-city="${esc(city)}">${esc(city)}${del}</span>`;
 }
-
 function renderCityChips(card) {
   const a3 = card.dataset.a3;
   const box = card.querySelector(".cc-cities");
   const cities = editing ? (draft[a3] || []) : effectiveCities(a3);
-  const html = cities.map(c => cityChipHtml(a3, c)).join("");
-  box.innerHTML = html || '<span class="cc-empty">暂无城市记录</span>';
+  box.innerHTML = cities.map(c => cityChipHtml(a3, c)).join("") || '<span class="cc-empty">暂无城市记录</span>';
 }
-
-function renderAll() {
+function renderCitiesEditorShell() {
+  if (!editor) return;
+  const groups = groupedA3(currentVisitedForCities());
+  editor.innerHTML = '<p class="cities-hint">每位访问者都可以基于默认国家和城市列表自定义自己的足迹；改动会保存到当前浏览器，不会覆盖公开页面。点击【编辑】可增删各国城市（<b>＋</b> 添加、<b>×</b> 删除）；改完点【刷新】保存并更新地图提示。</p>' +
+    groups.map(group => '<div class="clist-block"><h4>' + esc(group.continent) + ' <small>' + group.countries.length + ' 国</small></h4><div class="country-city-grid">' +
+      group.countries.map(c => '<div class="country-city-card" data-a3="' + esc(c.a3) + '" data-name="' + esc(c.name) + '"><div class="cc-head-row"><div class="cc-head">' + esc(c.flag + " " + c.name) + '</div><button type="button" class="cc-add-btn" title="添加城市" aria-label="添加城市"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><div class="cc-cities"></div></div>').join('') +
+      '</div></div>').join("\n");
+}
+function renderAllCities() {
+  if (editor) editor.classList.toggle("editing", editing);
   document.querySelectorAll(".country-city-card").forEach(renderCityChips);
 }
-
 function toast(msg) {
   let t = document.getElementById("cities-toast");
   if (!t) { t = document.createElement("div"); t.id = "cities-toast"; document.body.appendChild(t); }
@@ -549,26 +701,21 @@ function toast(msg) {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => t.classList.remove("show"), 1800);
 }
-
 function enterEdit() {
   editing = true;
   draft = {};
-  document.querySelectorAll(".country-city-card").forEach(card => {
-    draft[card.dataset.a3] = effectiveCities(card.dataset.a3).slice();
-  });
-  editor.classList.add("editing");
+  document.querySelectorAll(".country-city-card").forEach(card => { draft[card.dataset.a3] = effectiveCities(card.dataset.a3).slice(); });
+  if (editor) editor.classList.add("editing");
   editBtn.textContent = "取消";
-  renderAll();
+  renderAllCities();
 }
-
 function exitEdit() {
   editing = false;
   draft = {};
-  editor.classList.remove("editing");
+  if (editor) editor.classList.remove("editing");
   editBtn.textContent = "编辑";
-  renderAll();
+  renderAllCities();
 }
-
 function persistDraft() {
   const user = {};
   const removed = {};
@@ -583,7 +730,6 @@ function persistDraft() {
   saveJSON(USER_CITIES_KEY, user);
   saveJSON(REMOVED_CITIES_KEY, removed);
 }
-
 function startAdd(card) {
   const a3 = card.dataset.a3;
   const box = card.querySelector(".cc-cities");
@@ -613,37 +759,80 @@ function startAdd(card) {
   });
   inp.addEventListener("blur", () => commit(true));
 }
-
 function cityListHtml(a3) {
   const cities = VISITED_CITIES[a3];
   if (!cities || !cities.length) return "";
   const items = cities.slice(0, 3).map(c => "<li>" + esc(c) + "</li>").join("");
   return '<div class="city-head">最近去过的城市</div><ul class="city-list">' + items + "</ul>";
 }
+function enterCountryEdit() {
+  countryEditing = true;
+  countryDraft = Array.from(visitedSet);
+  countryEditBtn.textContent = "取消";
+  renderPage();
+}
+function exitCountryEdit() {
+  countryEditing = false;
+  countryDraft = [];
+  countryEditBtn.textContent = "编辑";
+  renderPage();
+}
+function persistCountryDraft() {
+  saveVisitedCountries(countryDraft);
+  refreshVisitedSet();
+  countryEditing = false;
+  countryDraft = [];
+  countryEditBtn.textContent = "编辑";
+}
+function renderPage() {
+  renderVisitedCountriesPanel();
+  renderTodoCountriesPanel();
+  renderMetrics();
+  renderMap();
+  renderCitiesEditorShell();
+  syncMapCities();
+  renderAllCities();
+}
 
-renderAll();
-syncMapCities();
+initDomRefs();
+refreshVisitedSet();
+renderPage();
 
+countryEditBtn?.addEventListener("click", () => { countryEditing ? exitCountryEdit() : enterCountryEdit(); });
+countryRefreshBtn?.addEventListener("click", () => {
+  if (countryEditing) persistCountryDraft();
+  renderPage();
+  toast("已保存并更新国家、地图和统计");
+});
+visitedCard?.addEventListener("click", e => {
+  if (!countryEditing) return;
+  const del = e.target.closest(".country-del");
+  if (del) {
+    const a3 = del.closest(".ctag")?.dataset.a3;
+    countryDraft = countryDraft.filter(item => item !== a3);
+    renderPage();
+    return;
+  }
+  const add = e.target.closest("#country-add-btn");
+  if (add) {
+    const val = document.getElementById("country-add-select")?.value;
+    if (val && !countryDraft.includes(val)) countryDraft.push(val);
+    renderPage();
+  }
+});
 editBtn.addEventListener("click", () => { editing ? exitEdit() : enterEdit(); });
-
 refreshBtn.addEventListener("click", () => {
   if (editing) persistDraft();
   editing = false;
   draft = {};
-  editor.classList.remove("editing");
   editBtn.textContent = "编辑";
-  renderAll();
-  syncMapCities();
-  toast("已保存并更新「去过的城市」");
+  renderPage();
+  toast("已保存并更新城市列表");
 });
-
 editor.addEventListener("click", e => {
   if (!editing) return;
   const addBtn = e.target.closest(".cc-add-btn");
-  if (addBtn) {
-    startAdd(addBtn.closest(".country-city-card"));
-    return;
-  }
+  if (addBtn) { startAdd(addBtn.closest(".country-city-card")); return; }
   const delBtn = e.target.closest(".city-del");
   if (!delBtn) return;
   const card = delBtn.closest(".country-city-card");
@@ -652,13 +841,12 @@ editor.addEventListener("click", e => {
   draft[a3] = (draft[a3] || []).filter(c => c !== city);
   renderCityChips(card);
 });
-
 document.querySelectorAll("#world-map path, #world-map circle.micro").forEach(el => {
   el.addEventListener("mouseenter", () => {
     const name = el.dataset.name || "未知";
     const a3 = el.dataset.a3 || "";
-    const visited = el.classList.contains("visited");
-    tip.innerHTML = "<strong>" + name + "</strong><div class=\"status " +
+    const visited = activeVisitedList().includes(a3);
+    tip.innerHTML = "<strong>" + esc(name) + "</strong><div class=\"status " +
       (visited ? "yes" : "no") + "\">" + (visited ? "✓ 已探索" : "○ 待探索") + "</div>" +
       (visited ? cityListHtml(a3) : "");
     tip.style.display = "block";
