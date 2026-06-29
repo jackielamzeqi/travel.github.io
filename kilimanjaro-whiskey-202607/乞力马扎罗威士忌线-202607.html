@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>非洲之巅·乞力马扎罗威士忌线 8日</title>
+<style>
+:root{
+  --bg:#0f1419;--card:#1a2332;--ink:#e8edf4;--muted:#8b9cb3;
+  --accent:#2dd4a8;--accent-dim:#1a6b5a;--gold:#f0b429;--line:#2e3d52;
+  --warn:#f0b429;--shadow:0 4px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px 48px}
+.hero{text-align:center;padding:24px 16px;margin-bottom:20px;
+  background:linear-gradient(160deg,#1a2a3a,#0f1419 60%);border-radius:20px;border:1px solid var(--line)}
+.hero .badge{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;
+  background:rgba(45,212,168,.15);color:var(--accent);margin-bottom:10px}
+.hero h1{font-size:22px;font-weight:700;line-height:1.35}
+.hero .dest{color:var(--muted);font-size:14px;margin-top:8px}
+.banner{background:rgba(240,180,41,.12);border:1px solid rgba(240,180,41,.35);
+  color:var(--warn);padding:12px 14px;border-radius:12px;font-size:13px;margin-bottom:18px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+@media(max-width:520px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.metric .num{font-size:18px;font-weight:700;color:var(--accent)}
+.metric .label{font-size:11px;color:var(--muted);margin-top:4px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.tab.active{background:var(--accent-dim);border-color:var(--accent);color:#fff}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.card h3{font-size:15px;margin-bottom:12px;color:var(--accent)}
+.price-big{font-size:36px;font-weight:800;color:var(--gold)}
+.price-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.cost-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.cost-table td{padding:10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.cost-table tr:last-child td{border-bottom:none}
+.cost-label{color:var(--muted);width:28%;white-space:nowrap;padding-right:12px}
+.cost-val{color:var(--ink);line-height:1.5}
+.tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:16px;
+  background:rgba(45,212,168,.12);color:var(--accent);margin:0 6px 6px 0}
+.muted-tag{background:#222d3d;color:var(--muted)}
+.day-card{border-left:3px solid var(--accent);padding:0 0 14px 14px;margin-bottom:14px}
+.day-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.day-num{font-size:13px;font-weight:700;color:var(--accent)}
+.day-title{font-size:15px;font-weight:600}
+.day-acts{list-style:none;margin:0 0 8px 0;padding:0}
+.day-acts li{font-size:13px;color:var(--muted);padding:3px 0 3px 14px;position:relative}
+.day-acts li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;
+  border-radius:50%;background:var(--accent);opacity:.7}
+.day-acts li.empty{font-style:italic;padding-left:0}
+.day-acts li.empty::before{display:none}
+.day-meta{display:flex;gap:16px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+ul.plain{list-style:none;padding:0}
+ul.plain li{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--line)}
+ul.plain li:last-child{border:none}
+ul.plain li.empty{font-style:italic}
+.muted{color:var(--muted);font-size:13px}
+.source{font-size:12px;color:var(--muted);margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.eval-card{background:#222d3d;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.eval-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.eval-title{font-weight:600}
+.eval-score{font-size:28px;font-weight:800;color:var(--gold)}
+.eval-score small{font-size:14px;color:var(--muted);font-weight:400}
+.eval-bars{display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);margin-bottom:8px}
+.eval-bars span{background:#1a2332;padding:3px 8px;border-radius:8px}
+.eval-verdict{font-size:13px;color:var(--ink);line-height:1.5}
+#route-map{height:440px;border-radius:12px;border:1px solid var(--line);margin-bottom:10px;z-index:0}
+.map-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:12px}
+.legend-item{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);
+  cursor:pointer;padding:3px 6px;border-radius:8px;transition:background .15s}
+.legend-item:hover,.legend-item.active{background:rgba(255,255,255,.06);color:var(--ink)}
+.legend-item i{display:inline-block;width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.map-day-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;align-items:center}
+.map-day-btn{padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;
+  background:#222d3d;border:2px solid var(--line);color:var(--muted);transition:all .15s}
+.map-day-btn.active{color:#fff;transform:scale(1.04)}
+.map-day-btn-all{border-style:dashed;font-weight:500}
+.day-route{font-size:12px;color:var(--muted);margin:-4px 0 8px 0}
+.day-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:10px}
+@media(min-width:520px){.day-stats{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:640px){.day-stats{grid-template-columns:repeat(5,1fr)}}
+.stat-cell{background:#222d3d;border-radius:8px;padding:8px 10px}
+.stat-label{display:block;font-size:10px;color:var(--muted);margin-bottom:2px}
+.stat-val{font-size:11px;font-weight:600;color:var(--ink);line-height:1.35}
+.hotel-card{background:#222d3d;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.hotel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+.hotel-stars{font-size:12px;color:var(--gold);white-space:nowrap}
+.hotel-rating{font-size:13px;margin:6px 0}
+.hotel-links a{color:var(--accent);font-size:13px;text-decoration:none}
+.hotel-links a:hover{text-decoration:underline}
+.day-meta a{color:var(--accent);text-decoration:none}
+.day-meta a:hover{text-decoration:underline}
+.elev-profile{width:100%;border-radius:10px;margin-top:8px;border:1px solid var(--line)}
+.elev-profile-svg{width:100%;height:auto;display:block;margin-top:8px;border-radius:10px;border:1px solid var(--line);background:#141b24}
+.day-card{cursor:pointer;border-radius:0 8px 8px 0;transition:background .15s,border-width .15s}
+.day-card:hover,.day-card.active{background:rgba(255,255,255,.04)}
+.day-card.active{border-left-width:5px}
+.leaflet-popup-content-wrapper{border-radius:10px}
+.leaflet-popup-content{margin:10px 14px;font-size:13px;line-height:1.45}
+.km-pin{display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;
+  border:2px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.45);line-height:1}
+.km-pin.dim{opacity:.45;transform:scale(.85)}
+.km-pin.active{transform:scale(1.08);box-shadow:0 3px 12px rgba(0,0,0,.55)}
+.km-pin-ref{width:10px;height:10px;background:#8b9cb3;border:2px solid #fff;border-radius:50%;
+  box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.km-marker-wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+.km-marker-wrap.dim{opacity:.4}
+.km-marker-wrap.active .km-pin-alt{transform:scale(1.06)}
+.km-pin-alt{display:inline-block;padding:3px 7px;font-size:10px;font-weight:700;color:#fff;
+  border:2px solid #fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.45);white-space:nowrap;line-height:1.2}
+.km-place-label{margin-top:3px;font-size:10px;font-weight:600;color:#e8edf4;
+  text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.7);white-space:nowrap;max-width:120px;
+  overflow:hidden;text-overflow:ellipsis}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">徒步帮旅行社旗舰店</div>
+    <h1>非洲之巅·乞力马扎罗威士忌线 8日</h1>
+    <p class="dest">📍 坦桑尼亚 · 乞力马扎罗（Machame 威士忌线） <span class="tag" style="background:rgba(240,180,41,.15);color:var(--gold)">轻奢版</span></p>
+  </header>
+
+  
+
+  <div class="metrics"><div class="metric"><div class="num">8 天</div><div class="label">天数</div></div><div class="metric"><div class="num">中高</div><div class="label">难度</div></div><div class="metric"><div class="num">63.0 km</div><div class="label">里程</div></div><div class="metric"><div class="num">5894 m</div><div class="label">爬升</div></div></div>
+  <p style="margin-bottom:14px"><span class="tag">2026年7月25日出发</span><span class="tag">元旦跨年团</span></p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overview">概览</button>
+    <button class="tab" data-tab="schedule">日程</button>
+    <button class="tab" data-tab="cost">费用</button>
+    <button class="tab" data-tab="gear">装备与注意</button>
+    <button class="tab" data-tab="dates">团期评估</button>
+  </div>
+
+  <div id="overview" class="panel active">
+    <div class="card">
+      <h3>亮点</h3>
+      <ul class="plain"><li>马查姆 (Machame)「威士忌线」，登顶乌呼鲁峰 (Uhuru Peak) 5894m</li><li>全程徒步约 63km（海拔剖面图 62.98km）</li><li>徒步帮 / 徒步中国团队执行</li><li>可衔接塞伦盖蒂 (Serengeti) 游猎延展</li></ul>
+    </div>
+    <div class="card"><h3>挑战难度</h3><p>综合评级：<b style="color:var(--accent)">中高</b></p><p class="muted" style="margin-top:8px">马查姆威士忌线对体能与高原适应均有要求；整体节奏「攀高睡低」，最难在冲顶日。</p><ul class="plain" style="margin-top:10px"><li>D6 冲顶日：徒步约 17km、12–14h，凌晨从 Barafu Camp（4673m）出发登顶 Uhuru Peak（5894m），当日爬升约 1221m、下降约 2794m</li><li>全程徒步约 63km（Machame Gate 1800m → Mweka Gate 1640m），含多日连续爬升</li><li>D4 适应日：先上至 Lava Tower（4630m）午餐适应，再下至 Barranco Camp（3960m）过夜</li><li>Barafu Camp（4673m）为冲顶大本营，夜间极寒；Mweka Hut（3100m）下撤后含氧量明显恢复</li><li>长距离下降对膝盖负担较大，建议护膝与登山杖；需提前评估高反风险</li></ul></div>
+    <div class='card'><h3>住宿酒店</h3><div class="hotel-card"><div class="hotel-head"><b>Kibo Palace Hotel</b><span class="hotel-stars">4 星</span></div><p class="muted">Arusha（阿鲁沙） · 入住 D1、D7</p><p class="hotel-rating">Google 4.7/5（1,815 条评价） <span class="muted">来源 Google Hotels</span></p><p class="hotel-links"><a href="https://www.google.com/maps/place/Kibo+Palace+Hotel/@-3.373389,36.694222,17z" target="_blank" rel="noopener">Google 地图</a> · <a href="https://www.google.com/travel/hotels/entity/ChcIlYPavZyc5bFTGgsvZy8xdGxyMnkxdxAB" target="_blank" rel="noopener">Google 酒店</a></p><p class="muted" style="margin-top:6px;font-size:12px">行程标注「或同级」；Agoda/Trip 等平台偶有五星标注，Google 归类为四星</p></div></div>
+  </div>
+
+  <div id="schedule" class="panel">
+    <div class="card"><h3>海拔剖面（徒步 62.98km）</h3><p class="muted">仅海拔曲线；标注 Machame Gate 至 Mweka Gate 沿途地点（公尺）。</p><div class="elev-wrap"><svg class="elev-profile-svg" viewBox="0 0 720 300" role="img" aria-label="海拔剖面 Machame Gate 至 Mweka Gate"><defs><linearGradient id="elevFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f06595" stop-opacity="0.55"/><stop offset="45%" stop-color="#fcc419" stop-opacity="0.45"/><stop offset="100%" stop-color="#51cf66" stop-opacity="0.35"/></linearGradient></defs><line x1="54" y1="219.7" x2="702" y2="219.7" stroke="#2e3d52" stroke-width="1" stroke-dasharray="4 4"/><text x="46" y="223.7" text-anchor="end" fill="#8b9cb3" font-size="10">2000m</text><line x1="54" y1="169.0" x2="702" y2="169.0" stroke="#2e3d52" stroke-width="1" stroke-dasharray="4 4"/><text x="46" y="173.0" text-anchor="end" fill="#8b9cb3" font-size="10">3000m</text><line x1="54" y1="118.3" x2="702" y2="118.3" stroke="#2e3d52" stroke-width="1" stroke-dasharray="4 4"/><text x="46" y="122.3" text-anchor="end" fill="#8b9cb3" font-size="10">4000m</text><line x1="54" y1="67.6" x2="702" y2="67.6" stroke="#2e3d52" stroke-width="1" stroke-dasharray="4 4"/><text x="46" y="71.6" text-anchor="end" fill="#8b9cb3" font-size="10">5000m</text><path d="M 54.0,229.9 L 167.2,168.5 L 218.6,126.2 L 290.6,86.4 L 342.1,120.4 L 393.5,116.6 L 434.7,84.2 L 475.8,30.2 L 486.1,22.3 L 568.4,164.0 L 702.0,238.0 L 702.0,238.0 L 54.0,238.0 Z" fill="url(#elevFill)" stroke="none"/><path d="M 54.0,229.9 L 167.2,168.5 L 218.6,126.2 L 290.6,86.4 L 342.1,120.4 L 393.5,116.6 L 434.7,84.2 L 475.8,30.2 L 486.1,22.3 L 568.4,164.0 L 702.0,238.0" fill="none" stroke="#2dd4a8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="54.0" cy="229.9" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="54.0" y="215.9" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Machame Gate</text><text x="54.0" y="211.9" text-anchor="middle" fill="#8b9cb3" font-size="8">1800m</text><circle cx="167.2" cy="168.5" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="167.2" y="190.5" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Machame Camp</text><text x="167.2" y="202.5" text-anchor="middle" fill="#8b9cb3" font-size="8">3010m</text><circle cx="218.6" cy="126.2" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="218.6" y="112.2" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Shira Camp</text><text x="218.6" y="108.2" text-anchor="middle" fill="#8b9cb3" font-size="8">3845m</text><circle cx="290.6" cy="86.4" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="290.6" y="108.4" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Lava Tower</text><text x="290.6" y="120.4" text-anchor="middle" fill="#8b9cb3" font-size="8">4630m</text><circle cx="342.1" cy="120.4" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="342.1" y="106.4" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Barranco Camp</text><text x="342.1" y="102.4" text-anchor="middle" fill="#8b9cb3" font-size="8">3960m</text><circle cx="393.5" cy="116.6" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="393.5" y="138.6" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Karanga Camp</text><text x="393.5" y="150.6" text-anchor="middle" fill="#8b9cb3" font-size="8">4035m</text><circle cx="434.7" cy="84.2" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="434.7" y="70.2" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Barafu Camp</text><text x="434.7" y="66.2" text-anchor="middle" fill="#8b9cb3" font-size="8">4673m</text><circle cx="475.8" cy="30.2" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="475.8" y="52.2" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Stella Point</text><text x="475.8" y="64.2" text-anchor="middle" fill="#8b9cb3" font-size="8">5739m</text><circle cx="486.1" cy="22.3" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="486.1" y="8.3" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Uhuru Peak</text><text x="486.1" y="4.3" text-anchor="middle" fill="#8b9cb3" font-size="8">5894m</text><circle cx="568.4" cy="164.0" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="568.4" y="186.0" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Mweka Hut</text><text x="568.4" y="198.0" text-anchor="middle" fill="#8b9cb3" font-size="8">3100m</text><circle cx="702.0" cy="238.0" r="4" fill="#f0b429" stroke="#fff" stroke-width="1.5"/><text x="702.0" y="224.0" text-anchor="middle" fill="#e8edf4" font-size="9" font-weight="600">Mweka Gate</text><text x="702.0" y="220.0" text-anchor="middle" fill="#8b9cb3" font-size="8">1640m</text><text x="54.0" y="282" text-anchor="middle" fill="#8b9cb3" font-size="10">0.0</text><text x="216.0" y="282" text-anchor="middle" fill="#8b9cb3" font-size="10">15.7</text><text x="378.0" y="282" text-anchor="middle" fill="#8b9cb3" font-size="10">31.5</text><text x="540.0" y="282" text-anchor="middle" fill="#8b9cb3" font-size="10">47.2</text><text x="702.0" y="282" text-anchor="middle" fill="#8b9cb3" font-size="10">63.0</text><text x="360" y="296" text-anchor="middle" fill="#8b9cb3" font-size="11">里程 km（63.0 km · Machame Gate → Mweka Gate）</text><text x="12" y="14" fill="#8b9cb3" font-size="11">海拔 m</text></svg><p class="muted" style="margin-top:8px;font-size:11px">OpenStreetMap Nominatim（免费）；交互地图瓦片同为 OSM。Google Maps 嵌入需 API Key，未启用。</p></div></div>
+    <div class="card"><h3>途径点海拔</h3><p class="muted">海拔以公尺 (m) 为准；含各营地备注。</p><table class="cost-table"><tr><td class="cost-label">Machame Gate</td><td class="cost-val"><b>1800m</b> · 起点，穿越热带雨林</td></tr><tr><td class="cost-label">Machame Camp</td><td class="cost-val"><b>3010m</b> · 官方路牌标 2835m，营地最高处常按 3010m 计</td></tr><tr><td class="cost-label">Shira Camp (Shira 2)</td><td class="cost-val"><b>3845m</b> · 离开森林进入高山荒野，可远眺梅鲁火山 (Mt Meru)</td></tr><tr><td class="cost-label">Lava Tower</td><td class="cost-val"><b>4630m</b> · 路线最高适应点，仅午餐与高反适应，不过夜</td></tr><tr><td class="cost-label">Barranco Camp</td><td class="cost-val"><b>3960m</b> · 位于 Barranco 墙下，被誉为最美营地</td></tr><tr><td class="cost-label">Karanga Valley / Camp</td><td class="cost-val"><b>4035m</b> · 冲顶前短途过渡营地</td></tr><tr><td class="cost-label">Barafu Camp</td><td class="cost-val"><b>4673m</b> · 冲顶大本营 (Base Camp)，高山极寒荒漠地貌</td></tr><tr><td class="cost-label">Mweka Hut / Camp</td><td class="cost-val"><b>3100m</b> · 冲顶后下撤营地，空气含氧量恢复</td></tr><tr><td class="cost-label">Mweka Gate</td><td class="cost-val"><b>1640m</b> · 终点，领取登顶证书处</td></tr></table></div>
+    <div class="card">
+      <h3>路线地图 · 坦桑尼亚北部</h3>
+      <p class="map-hint">标记显示海拔与英文地名；点击 D1–D8、「全部」或图例/日程卡片切换路线高亮。</p>
+      <div id="route-map"></div>
+      <div class="map-legend" id="map-legend"><span class="legend-item" data-day="1" title="集结日 · 阿鲁沙"><i style="background:#4dabf7"></i>D1 阿鲁沙</span><span class="legend-item" data-day="2" title="阿鲁沙 → 马查姆营地"><i style="background:#51cf66"></i>D2 阿鲁沙 → 马…</span><span class="legend-item" data-day="3" title="马查姆 → 希拉营地"><i style="background:#9775fa"></i>D3 马查姆 → 希…</span><span class="legend-item" data-day="4" title="希拉 → 巴兰科营地"><i style="background:#fcc419"></i>D4 希拉 → 巴兰…</span><span class="legend-item" data-day="5" title="巴兰科 → 巴拉夫营地"><i style="background:#ff922b"></i>D5 巴兰科 → 巴…</span><span class="legend-item" data-day="6" title="冲顶乌呼鲁峰 → 姆维卡"><i style="background:#f06595"></i>D6 冲顶乌呼鲁峰 …</span><span class="legend-item" data-day="7" title="姆维卡 → 阿鲁沙"><i style="background:#22b8cf"></i>D7 姆维卡 → 阿…</span><span class="legend-item" data-day="8" title="返程或延展"><i style="background:#868e96"></i>D8 返程或延展</span></div>
+      <div class="map-day-btns" id="map-day-btns"></div>
+    </div>
+    <div class="card"><div class="day-card" data-day="1" tabindex="0" style="border-left-color:#4dabf7"><div class="day-head"><span class="day-num" style="color:#4dabf7">D1</span><span class="day-title">集结日 · 阿鲁沙</span></div><p class="day-route">Kilimanjaro Intl. Airport (JRO) → Arusha</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">欢迎晚宴</span></div><div class="stat-cell"><span class="stat-label">车程</span><span class="stat-val">机场接机约 1–1.5h</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Arusha 1400m</span></div></div><ul class="day-acts"><li>抵达坦桑尼亚（赤道以南，官方语言英语/斯瓦希里语）</li><li>Arusha 为坦桑第三大城市，距乞力马扎罗约 60km</li><li>机场接机 → 入住酒店</li><li>行前说明会、装备检查</li><li>欢迎晚宴</li></ul><div class="day-meta"><span>🚗 专车接机</span><span>🏨 <a href="https://www.google.com/maps/place/Kibo+Palace+Hotel/@-3.373389,36.694222,17z" target="_blank" rel="noopener">Kibo Palace Hotel（或同级）</a></span></div></div>
+<div class="day-card" data-day="2" tabindex="0" style="border-left-color:#51cf66"><div class="day-head"><span class="day-num" style="color:#51cf66">D2</span><span class="day-title">阿鲁沙 → 马查姆营地</span></div><p class="day-route">Arusha → Machame Gate → Machame Camp</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐</span></div><div class="stat-cell"><span class="stat-label">车程</span><span class="stat-val">私车 1h+</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">11km · 5–6h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↑1210m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Machame Camp 3010m</span></div></div><ul class="day-acts"><li>早餐后乘私人小巴前往 Machame Gate（1800m）</li><li>与厨师、背夫等支援团队会合，登记并称重行李</li><li>经咖啡园进入热带雨林徒步</li><li>抵达 Machame Camp（3010m）扎营</li></ul><div class="day-meta"><span>🚗 车程 1h+ · 徒步 11km</span><span>🏨 Machame Camp 帐篷</span></div></div>
+<div class="day-card" data-day="3" tabindex="0" style="border-left-color:#9775fa"><div class="day-head"><span class="day-num" style="color:#9775fa">D3</span><span class="day-title">马查姆 → 希拉营地</span></div><p class="day-route">Machame Camp → Shira Camp (Shira 2)</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">5km · 4–5h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↑835m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Shira Camp 3845m</span></div></div><ul class="day-acts"><li>陡坡、尘土路段，部分无树荫需防晒</li><li>离开雨林进入高山荒野（Shira Plateau）</li><li>晴好天气可远眺梅鲁火山 (Mt Meru)</li><li>抵达 Shira Camp / Shira 2（3845m）扎营</li><li>学习高压氧箱/氧气瓶等高原适应知识</li></ul><div class="day-meta"><span>🚗 徒步 5km</span><span>🏨 Shira Camp 帐篷</span></div></div>
+<div class="day-card" data-day="4" tabindex="0" style="border-left-color:#fcc419"><div class="day-head"><span class="day-num" style="color:#fcc419">D4</span><span class="day-title">希拉 → 巴兰科营地</span></div><p class="day-route">Shira Camp → Lava Tower → Barranco Camp</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">10km · 6–7h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↑785m ↓670m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Barranco Camp 3960m</span></div></div><ul class="day-acts"><li>稳步上行至 Lava Tower（4630m）午餐——路线最高适应点，仅适应不过夜</li><li>午后约 2h 下降经火山岩地带至 Barranco Camp（3960m）</li><li>营地位于 Barranco 墙下，被誉为最美营地</li><li>晴好天气可远观 Uhuru Peak 日落</li></ul><div class="day-meta"><span>🚗 徒步 10km</span><span>🏨 Barranco Camp 帐篷</span></div></div>
+<div class="day-card" data-day="5" tabindex="0" style="border-left-color:#ff922b"><div class="day-head"><span class="day-num" style="color:#ff922b">D5</span><span class="day-title">巴兰科 → 巴拉夫营地</span></div><p class="day-route">Barranco Camp → Karanga Camp → Barafu Camp</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">11km · 8–10h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↑713m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Barafu Camp 4673m</span></div></div><ul class="day-acts"><li>翻越 Barranco Wall</li><li>途经 Heim Glacier 下方，穿越 Karanga Valley / Camp（4035m，冲顶前过渡营地）</li><li>与 Mweka 下撤路线汇合后上升至 Barafu Camp（4673m）</li><li>冲顶大本营 (Base Camp)，高山极寒荒漠地貌；整理冲顶装备</li><li>可眺望 Mawenzi Peak 与 Kibo</li></ul><div class="day-meta"><span>🚗 徒步 11km</span><span>🏨 Barafu Camp 帐篷</span></div></div>
+<div class="day-card" data-day="6" tabindex="0" style="border-left-color:#f06595"><div class="day-head"><span class="day-num" style="color:#f06595">D6</span><span class="day-title">冲顶乌呼鲁峰 → 姆维卡</span></div><p class="day-route">Barafu Camp → Uhuru Peak → Mweka Hut</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">17km · 12–14h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↑1221m ↓2794m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Mweka Hut 3100m · 登顶 5894m</span></div></div><ul class="day-acts"><li>凌晨从 Barafu Camp（4673m）出发，经碎石坡上行</li><li>约 6h 抵达 Stella Point（5739m）观日出</li><li>再 1h 至 Uhuru Peak（5894m，非洲之巅）</li><li>下撤至 Barafu Camp 午餐，继续降至 Mweka Hut（3100m）——含氧量明显恢复</li></ul><div class="day-meta"><span>🚗 徒步 17km</span><span>🏨 Mweka Hut 帐篷</span></div></div>
+<div class="day-card" data-day="7" tabindex="0" style="border-left-color:#22b8cf"><div class="day-head"><span class="day-num" style="color:#22b8cf">D7</span><span class="day-title">姆维卡 → 阿鲁沙</span></div><p class="day-route">Mweka Hut → Mweka Gate → Arusha</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含三餐（庆功宴）</span></div><div class="stat-cell"><span class="stat-label">车程</span><span class="stat-val">回阿鲁沙车程约 1–2h</span></div><div class="stat-cell"><span class="stat-label">徒步</span><span class="stat-val">8.5km · 约 6h</span></div><div class="stat-cell"><span class="stat-label">爬升/下降</span><span class="stat-val">↓1460m</span></div><div class="stat-cell"><span class="stat-label">营地海拔</span><span class="stat-val">Arusha 1400m</span></div></div><ul class="day-acts"><li>早餐后 4–6h 下撤至 Mweka Gate（1640m），建议护膝+登山杖</li><li>登记并领取登顶证书（Stella Point 绿证 / Uhuru Peak 金证）</li><li>沿泥泞路步行 3km 至 Mweka Village 午餐</li><li>乘车回 Arusha 酒店休整、庆功宴</li></ul><div class="day-meta"><span>🚗 徒步 8.5km + 车程</span><span>🏨 <a href="https://www.google.com/maps/place/Kibo+Palace+Hotel/@-3.373389,36.694222,17z" target="_blank" rel="noopener">Kibo Palace Hotel（或同级）</a></span></div></div>
+<div class="day-card" data-day="8" tabindex="0" style="border-left-color:#868e96"><div class="day-head"><span class="day-num" style="color:#868e96">D8</span><span class="day-title">返程或延展</span></div><p class="day-route">Arusha → JRO / Serengeti extension</p><div class="day-stats"><div class="stat-cell"><span class="stat-label">餐饮</span><span class="stat-val">含早餐，午晚自理</span></div><div class="stat-cell"><span class="stat-label">车程</span><span class="stat-val">送机 1–1.5h</span></div></div><ul class="day-acts"><li>统一行程结束，自选回国或继续游玩</li><li>时间允许可延展 Serengeti 游猎，观赏动物大迁徙</li><li>专车送机</li></ul><div class="day-meta"><span>🚗 送机</span><span>🏨 无</span></div></div></div>
+  </div>
+
+  <div id="cost" class="panel"><div class="card"><p style="margin-bottom:10px"><span class="tag muted-tag" style="">标准版 ¥18,500 · 8天7晚</span><span class="tag" style="border:1px solid var(--accent)">轻奢版 ¥19,800 · 8天7晚 · 已选</span><span class="tag muted-tag" style="">豪华版 ¥25,800 · 8天7晚</span></p><div class="price-big">¥19,800</div><p class="price-sub">轻奢版 · 8天7晚 · CNY</p><p class="muted" style="margin-top:8px">报名占位：<b>¥5,000</b>（报名占位金，具体以所选团期页面为准）</p><p class="muted" style="margin-top:6px">退损无忧：提前 30 日无理由全额退款（以商家规则为准）</p><h3 style="margin-top:18px">团费包含</h3><ul class="plain"><li>D2–D7 含三餐；D1 欢迎晚宴；D8 仅含早餐</li><li>阿鲁沙 Kibo Palace Hotel（或同级），D1、D7 各 1 晚</li><li>登山期间营地帐篷（约 5 晚）</li><li>机场接送、园区私人小巴</li><li>登山支援团队：向导、厨师、背夫</li><li>D7 庆功宴</li><li>园区门票、登山许可及相关行政费用（含在团费内）</li></ul><div class="card" style="margin-top:14px;background:#222d3d"><h3>登山小费</h3><p style="font-size:22px;font-weight:700;color:var(--gold)">约 $240/人</p><p class="muted" style="margin-top:8px">建议合计约 $240/人，行程结束发给向导、厨师、背夫等登山团队（现金，美元）。不含在团费内，为坦桑登山惯例。</p></div><h3 style="margin-top:18px">费用不含 / 另付</h3><table class="cost-table"><tr><td class="cost-label">登山小费</td><td class="cost-val">建议 $240/人（见上方说明）</td></tr><tr><td class="cost-label">大交通</td><td class="cost-val">往返阿鲁沙（JRO 机场）的国际机票及税费</td></tr><tr><td class="cost-label">个人消费</td><td class="cost-val">酒水饮料等；除部分餐厅/民宿/野餐已含茶水外</td></tr><tr><td class="cost-label">单房差</td><td class="cost-val">以领队群里通知为准</td></tr><tr><td class="cost-label">单帐差</td><td class="cost-val">¥1,600 / 5 晚（独自使用帐篷）</td></tr><tr><td class="cost-label">代订集合酒店</td><td class="cost-val">以领队群里通知为准</td></tr><tr><td class="cost-label">冲顶 1:1 向导</td><td class="cost-val">$100（可选升级）</td></tr><tr><td class="cost-label">签证</td><td class="cost-val">坦桑尼亚落地签/电子签约 $50</td></tr><tr><td class="cost-label">行程外税费</td><td class="cost-val">2024年11月起国际旅客入境坦桑尼亚机场缴纳 $90 税费（政策以届时为准）</td></tr><tr><td class="cost-label">行程外费用</td><td class="cost-val">行程以外的所有个人消费与延展项目</td></tr><tr><td class="cost-label">个人装备与保险</td><td class="cost-val">冲锋衣裤、睡袋内胆、旅行保险等</td></tr><tr><td class="cost-label">其他</td><td class="cost-val">因个人原因未完成全部行程或提前返回，视为自动放弃，团费不退</td></tr><tr><td class="cost-label">不可抗力</td><td class="cost-val">自然灾害、道路中断、政策变化等导致的额外费用</td></tr></table><p class="muted" style="margin-top:12px;font-size:12px">登山行李限重 20kg，建议软包。D8 午晚餐自理。</p></div></div>
+
+  
+
+  <div id="gear" class="panel"><div class="card"><h3>装备建议</h3><ul class="plain"><li>三层穿衣：排汗打底、抓绒/薄羽绒、防水冲锋衣裤</li><li>高帮徒步鞋、登山杖、头灯（冲顶必备）</li><li>睡垫、保温杯、20kg 以内软包行李</li><li>Barafu Camp（4673m）夜间极寒，需厚羽绒与保暖配件</li><li>Lava Tower（4630m）适应日风大，备防风层与防晒</li></ul></div><div class="card"><h3>注意事项</h3><ul class="plain"><li>6–10 月长旱季为登山旺季</li><li>签证落地签或电子签约 $50</li><li>小费合计建议约 $240/人</li><li>Machame Gate 1800m 起攀，热带雨林蚊虫多，备驱虫剂</li><li>Lava Tower 4630m 仅午餐适应，勿在此过夜</li><li>Barafu Camp 4673m 为冲顶大本营，提前检查头灯与保暖装备</li><li>Mweka Gate 1640m 领取证书，需保留向导签字</li></ul></div></div>
+
+  
+
+  <div id="dates" class="panel"><div class="card"><h3>团期对比结论</h3><p class="muted">7月属长旱季，登顶条件最佳；若指2026-07-25则准备时间极紧。元旦跨年处于短雨季末，天气与能见度弱于7月。</p><p style="margin-top:10px;color:var(--accent)">倾向推荐：<b>7月25日</b> · 坦桑尼亚为未涉足国家 +2</p></div><div class="eval-card"><div class="eval-head"><span class="eval-title">7月25日</span><span class="eval-score">72<small>/100</small></span></div><div class="eval-bars"><span>季节 9.2</span><span>准备时间 3.5</span><span>请假成本 7.0</span><span>体验 9.0</span></div><p class="eval-verdict">季节最佳；2026年档期需确认是否来得及办签与备货</p></div><div class="eval-card"><div class="eval-head"><span class="eval-title">元旦跨年</span><span class="eval-score">68<small>/100</small></span></div><div class="eval-bars"><span>季节 6.8</span><span>准备时间 8.5</span><span>请假成本 5.5</span><span>体验 8.2</span></div><p class="eval-verdict">准备更充裕，但年末云雨与节庆溢价需权衡</p></div></div>
+
+  <div class="source">
+    来源：https://tuicashier.youzan.com/pay/wscgoods_order?alias=27bh5iu1gaac8a4<br>
+    path_id：— · 生成日期：2026-06-28
+  </div>
+  <p class="footer">由 miniprogram-travel-brief 生成 · 仅供旅行计划参考</p>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    const panel = document.getElementById(btn.dataset.tab);
+    panel.classList.add("active");
+    if (btn.dataset.tab === "schedule" && window.routeMap) {
+      setTimeout(() => window.routeMap.invalidateSize(), 120);
+    }
+  });
+});
+
+(function() {
+  const MAP_DATA = {"places": [{"id": "jro", "name": "乞力马扎罗国际机场", "name_en": "Kilimanjaro Intl. Airport (JRO)", "map_label": "JRO", "lat": -3.4294, "lon": 37.0745, "alt_m": 890, "days": [1, 8]}, {"id": "arusha", "name": "阿鲁沙", "name_en": "Arusha", "map_label": "Arusha", "lat": -3.3869, "lon": 36.6829, "alt_m": 1400, "days": [1, 2, 7, 8]}, {"id": "machame_gate", "name": "马查姆山门", "name_en": "Machame Gate", "map_label": "Machame Gate", "lat": -3.1737, "lon": 37.239, "alt_m": 1800, "camp_note": "起点，穿越热带雨林", "days": [2], "osm": true}, {"id": "machame_camp", "name": "马查姆营地", "name_en": "Machame Camp", "map_label": "Machame Camp", "lat": -3.0834, "lon": 37.2178, "alt_m": 3010, "camp_note": "官方路牌 2835m，营地最高处常按 3010m", "days": [2, 3]}, {"id": "shira", "name": "希拉营地", "name_en": "Shira Camp (Shira 2)", "map_label": "Shira Camp", "lat": -3.0503, "lon": 37.1831, "alt_m": 3845, "camp_note": "高山荒野，可远眺梅鲁火山", "days": [3, 4]}, {"id": "lava_tower", "name": "熔岩塔", "name_en": "Lava Tower", "map_label": "Lava Tower", "lat": -3.0684, "lon": 37.3266, "alt_m": 4630, "camp_note": "最高适应点，午餐适应不过夜", "days": [4], "osm": true}, {"id": "barranco", "name": "巴兰科营地", "name_en": "Barranco Camp", "map_label": "Barranco Camp", "lat": -3.0951, "lon": 37.3296, "alt_m": 3960, "camp_note": "Barranco 墙下，最美营地", "days": [4, 5], "osm": true}, {"id": "karanga", "name": "卡朗加营地", "name_en": "Karanga Valley / Camp", "map_label": "Karanga Camp", "lat": -3.113, "lon": 37.3549, "alt_m": 4035, "camp_note": "冲顶前短途过渡营地", "days": [5], "osm": true}, {"id": "mawenzi", "name": "马文茨峰", "name_en": "Mawenzi Peak", "map_label": "Mawenzi Peak", "lat": -3.0925, "lon": 37.455, "alt_m": 5149, "days": [5], "landmark": true}, {"id": "barafu", "name": "巴拉夫营地", "name_en": "Barafu Camp", "map_label": "Barafu Camp", "lat": -3.1, "lon": 37.3787, "alt_m": 4673, "camp_note": "冲顶大本营，高山极寒荒漠", "days": [5, 6], "osm": true}, {"id": "stella", "name": "斯特拉点", "name_en": "Stella Point", "map_label": "Stella Point", "lat": -3.0782, "lon": 37.3626, "alt_m": 5739, "days": [6], "osm": true}, {"id": "uhuru", "name": "乌呼鲁峰", "name_en": "Uhuru Peak", "map_label": "Uhuru Peak", "lat": -3.0764, "lon": 37.354, "alt_m": 5894, "days": [6], "osm": true}, {"id": "mweka_camp", "name": "姆维卡营地", "name_en": "Mweka Hut", "map_label": "Mweka Hut", "lat": -3.1569, "lon": 37.367, "alt_m": 3100, "camp_note": "冲顶后下撤营地，含氧量恢复", "days": [6, 7], "osm": true}, {"id": "mweka_gate", "name": "姆维卡山门", "name_en": "Mweka Gate", "map_label": "Mweka Gate", "lat": -3.2197, "lon": 37.3412, "alt_m": 1640, "camp_note": "终点，领取登顶证书", "days": [7], "osm": true}, {"id": "nairobi", "name": "内罗毕（参考）", "name_en": "Nairobi", "map_label": "Nairobi", "lat": -1.2864, "lon": 36.8172, "alt_m": 1795, "days": [], "reference": true}], "dayPlaces": {"1": ["jro", "arusha"], "2": ["arusha", "machame_gate", "machame_camp"], "3": ["machame_camp", "shira"], "4": ["shira", "lava_tower", "barranco"], "5": ["barranco", "karanga", "barafu", "mawenzi"], "6": ["barafu", "stella", "uhuru", "mweka_camp"], "7": ["mweka_camp", "mweka_gate", "arusha"], "8": ["arusha", "jro"]}, "daySegments": [{"day": "1", "color": "#4dabf7", "points": [[-3.4294, 37.0745], [-3.3869, 36.6829]]}, {"day": "2", "color": "#51cf66", "points": [[-3.3869, 36.6829], [-3.1737, 37.239], [-3.0834, 37.2178]]}, {"day": "3", "color": "#9775fa", "points": [[-3.0834, 37.2178], [-3.0503, 37.1831]]}, {"day": "4", "color": "#fcc419", "points": [[-3.0503, 37.1831], [-3.0684, 37.3266], [-3.0951, 37.3296]]}, {"day": "5", "color": "#ff922b", "points": [[-3.0951, 37.3296], [-3.113, 37.3549], [-3.1, 37.3787]]}, {"day": "6", "color": "#f06595", "points": [[-3.1, 37.3787], [-3.0782, 37.3626], [-3.0764, 37.354], [-3.1569, 37.367]]}, {"day": "7", "color": "#22b8cf", "points": [[-3.1569, 37.367], [-3.2197, 37.3412], [-3.3869, 36.6829]]}, {"day": "8", "color": "#868e96", "points": [[-3.3869, 36.6829], [-3.4294, 37.0745]]}], "dayColors": {"1": "#4dabf7", "2": "#51cf66", "3": "#9775fa", "4": "#fcc419", "5": "#ff922b", "6": "#f06595", "7": "#22b8cf", "8": "#868e96"}, "placeDays": {"jro": [1, 8], "arusha": [1, 2, 7, 8], "machame_gate": [2], "machame_camp": [2, 3], "shira": [3, 4], "lava_tower": [4], "barranco": [4, 5], "karanga": [5], "barafu": [5, 6], "mawenzi": [5], "stella": [6], "uhuru": [6], "mweka_camp": [6, 7], "mweka_gate": [7]}, "markerDay": {"jro": 1, "arusha": 1, "machame_gate": 2, "machame_camp": 2, "shira": 3, "lava_tower": 4, "barranco": 4, "karanga": 5, "barafu": 5, "stella": 6, "uhuru": 6, "mweka_camp": 6, "mweka_gate": 7}};
+  if (!MAP_DATA.places || !MAP_DATA.places.length) return;
+
+  const map = L.map("route-map", { scrollWheelZoom: true });
+  window.routeMap = map;
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 14,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+  }).addTo(map);
+
+  const dayPolylines = {};
+  const allBounds = [];
+
+  (MAP_DATA.daySegments || []).forEach(seg => {
+    const line = L.polyline(seg.points, {
+      color: seg.color,
+      weight: 5,
+      opacity: 0.88,
+      lineCap: "round",
+      lineJoin: "round"
+    }).addTo(map);
+    dayPolylines[seg.day] = line;
+    seg.points.forEach(p => allBounds.push(p));
+  });
+
+  function placeLabel(p) {
+    return p.map_label || p.name_en || p.name || "";
+  }
+
+  function markerColor(id) {
+    const days = MAP_DATA.placeDays[id] || [];
+    const d = MAP_DATA.markerDay && MAP_DATA.markerDay[id];
+    return MAP_DATA.dayColors[String(d || days[0])] || "#2dd4a8";
+  }
+
+  function makeMarker(place, color, state) {
+    const alt = place.alt_m ? place.alt_m + "m" : "";
+    const name = placeLabel(place);
+    const dim = state === "dim" ? " dim" : (state === "active" ? " active" : "");
+    const html = '<div class="km-marker-wrap' + dim + '">'
+      + '<div class="km-pin-alt" style="background:' + color + '">' + alt + '</div>'
+      + '<div class="km-place-label">' + name + '</div></div>';
+    const w = Math.max(72, name.length * 6 + 16);
+    return L.divIcon({
+      className: "",
+      html: html,
+      iconSize: [w, 36],
+      iconAnchor: [w / 2, 18]
+    });
+  }
+
+  const refIcon = L.divIcon({
+    className: "",
+    html: '<div class="km-pin-ref"></div>',
+    iconSize: [10, 10],
+    iconAnchor: [5, 5]
+  });
+
+  const allMarkers = {};
+  MAP_DATA.places.forEach(p => {
+    if (p.reference) {
+      const m = L.marker([p.lat, p.lon], { icon: refIcon }).addTo(map);
+      m.bindPopup("<b>" + placeLabel(p) + "</b>（参考）");
+      allMarkers[p.id] = m;
+      return;
+    }
+    const color = markerColor(p.id);
+    const m = L.marker([p.lat, p.lon], { icon: makeMarker(p, color, "normal") }).addTo(map);
+    const days = MAP_DATA.placeDays[p.id] || [];
+    const alt = p.alt_m ? "<br>海拔 " + p.alt_m + "m" : "";
+    const note = p.camp_note ? "<br><span style='color:#888;font-size:12px'>" + p.camp_note + "</span>" : "";
+    const zh = p.name ? "<span style='color:#666'>" + p.name + "</span><br>" : "";
+    const dayTag = days.length
+      ? "<br><span style='color:#666'>D" + days.join(" · D") + "</span>" : "";
+    m.bindPopup("<b>" + placeLabel(p) + "</b>" + zh + alt + note + dayTag);
+    allMarkers[p.id] = m;
+  });
+
+  if (allBounds.length > 1) {
+    map.fitBounds(L.latLngBounds(allBounds), { padding: [32, 32] });
+  } else {
+    map.setView([-3.07, 37.25], 10);
+  }
+
+  let activeDay = "all";
+
+  function setUiActive(day) {
+    document.querySelectorAll(".map-day-btn").forEach(b => {
+      b.classList.toggle("active", b.dataset.day === day);
+    });
+    document.querySelectorAll(".legend-item").forEach(el => {
+      el.classList.toggle("active", el.dataset.day === day);
+    });
+    document.querySelectorAll(".day-card").forEach(c => {
+      c.classList.toggle("active", c.dataset.day === day);
+    });
+  }
+
+  function highlightDay(day) {
+    activeDay = String(day);
+    setUiActive(activeDay);
+
+    document.querySelectorAll(".map-day-btn").forEach(b => {
+      if (b.dataset.day === "all") {
+        b.style.background = activeDay === "all" ? "rgba(255,255,255,.1)" : "";
+      } else if (b.dataset.day === activeDay) {
+        b.style.background = MAP_DATA.dayColors[b.dataset.day] || "";
+      } else {
+        b.style.background = "";
+      }
+    });
+
+    Object.entries(dayPolylines).forEach(([d, line]) => {
+      const on = activeDay === "all" || d === activeDay;
+      const color = MAP_DATA.dayColors[d] || "#2dd4a8";
+      line.setStyle({
+        color: color,
+        weight: on ? (activeDay === "all" ? 5 : 7) : 3,
+        opacity: on ? (activeDay === "all" ? 0.88 : 1) : 0.15
+      });
+      if (on && activeDay !== "all") line.bringToFront();
+    });
+
+    const ids = activeDay === "all" ? null : (MAP_DATA.dayPlaces[activeDay] || []);
+    const bounds = [];
+
+    Object.entries(allMarkers).forEach(([id, m]) => {
+      const place = MAP_DATA.places.find(p => p.id === id);
+      if (place && place.reference) return;
+      const color = activeDay === "all"
+        ? markerColor(id)
+        : (MAP_DATA.dayColors[activeDay] || "#f0b429");
+      if (activeDay === "all") {
+        m.setIcon(makeMarker(place, color, "normal"));
+        m.setZIndexOffset(0);
+        bounds.push(m.getLatLng());
+        return;
+      }
+      const on = ids.includes(id);
+      m.setIcon(makeMarker(place, color, on ? "active" : "dim"));
+      m.setZIndexOffset(on ? 1000 : 0);
+      if (on) bounds.push(m.getLatLng());
+    });
+
+    if (activeDay !== "all" && bounds.length) {
+      map.fitBounds(L.latLngBounds(bounds), { padding: [48, 48], maxZoom: 12 });
+    } else if (activeDay === "all" && allBounds.length > 1) {
+      map.fitBounds(L.latLngBounds(allBounds), { padding: [32, 32] });
+    }
+  }
+
+  const btnWrap = document.getElementById("map-day-btns");
+  const allBtn = document.createElement("button");
+  allBtn.type = "button";
+  allBtn.className = "map-day-btn map-day-btn-all active";
+  allBtn.dataset.day = "all";
+  allBtn.textContent = "全部";
+  allBtn.addEventListener("click", () => highlightDay("all"));
+  btnWrap.appendChild(allBtn);
+
+  Object.keys(MAP_DATA.dayColors).sort((a, b) => +a - +b).forEach(d => {
+    const color = MAP_DATA.dayColors[d];
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "map-day-btn";
+    b.dataset.day = d;
+    b.textContent = "D" + d;
+    b.style.borderColor = color;
+    b.style.setProperty("--day-color", color);
+    b.addEventListener("click", () => highlightDay(d));
+    btnWrap.appendChild(b);
+  });
+
+  document.querySelectorAll(".legend-item").forEach(el => {
+    el.addEventListener("click", () => highlightDay(el.dataset.day));
+  });
+
+  document.querySelectorAll(".day-card").forEach(card => {
+    card.addEventListener("click", () => highlightDay(card.dataset.day));
+    card.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        highlightDay(card.dataset.day);
+      }
+    });
+  });
+
+  highlightDay("all");
+})();
+</script>
+</body>
+</html>
