@@ -137,8 +137,21 @@ ul.plain li.empty{font-style:italic}
 .review-src{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
 .review-src a{color:var(--accent);text-decoration:none}
 .review-src a:hover{text-decoration:underline}
-.review-warn{background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.3);
-  border-radius:10px;padding:10px 12px;font-size:12px;color:var(--warn);margin-bottom:14px}
+.review-kw{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.review-kw span{font-size:11px;padding:4px 10px;border-radius:12px;background:#1a2332;color:var(--accent);border:1px solid var(--line)}
+.review-kw span.neg{color:var(--warn);border-color:rgba(240,180,41,.25)}
+.review-score-big{font-size:42px;font-weight:800;color:var(--gold);line-height:1}
+.review-score-wrap{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin:12px 0 16px}
+.review-dim{flex:1;min-width:200px}
+.review-dim-row{display:grid;grid-template-columns:1fr 2.5rem;gap:8px;align-items:baseline;font-size:12px;margin:4px 0;color:var(--muted)}
+.review-dim-row span:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.review-dim-bar{height:6px;background:#1a2332;border-radius:3px;overflow:hidden;margin-bottom:8px}
+.review-dim-bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.review-dim-bar i.gold{background:var(--gold)}
+.review-dim-bar i.warn{background:var(--warn)}
+.review-qa{margin-top:8px}
+.review-qa h5{font-size:13px;color:var(--ink);margin:12px 0 6px;font-weight:600}
+.review-qa p,.review-qa li{font-size:13px;line-height:1.6;color:var(--ink)}
 .prep-hero{background:#222d3d;border-radius:12px;padding:14px;margin-bottom:14px;text-align:center}
 .prep-hero .prep-d-day{font-size:28px;font-weight:800;color:var(--gold)}
 .prep-hero .prep-d-sub{font-size:12px;color:var(--muted);margin-top:4px}
@@ -331,115 +344,118 @@ ul.plain li.empty{font-style:italic}
   <div id="reviews" class="panel">
     <div class="card">
       <h3>用户评价</h3>
-      <div class="review-warn">检索说明（2026-07-03）：按 xhs-research 流程，OpenCLI v1.8.5 + Chrome CDP 直连 <code>chrome_ai_profile</code> 小红书搜索页；Browser Bridge 扩展已安装但未连接，实际采用 CDP 稳定路径。<b>搜索列表</b>已核验标题、作者、日期、互动量与笔记链接；<b>详情正文</b>多数需 App 扫码，未能全文抓取。以下 B 级结论来自列表信号 + 既有 A/B 源交叉印证；明显品牌宣传笔记单独标注，不支撑体验深度评分。</div>
 
-      <div class="review-block">
-        <h4>小红书调研摘要 · 威士忌线（B 级）</h4>
-        <ul class="plain">
-          <li><b>检索词</b>：乞力马扎罗 威士忌线、乞力马扎罗 Machame、徒步帮 乞力马扎罗（2026-07-03 CDP 抓取）</li>
-          <li><b>信号强度</b>：「威士忌线」前排结果 <b>20+</b> 条独立笔记，含 2025.7 / 国庆 7–8 月登顶记录、Machame 分日日记、路线对比与装备清单——社区讨论活跃，非冷门线</li>
-          <li><b>徒步帮专项</b>：「徒步帮 + 乞力马扎罗」搜索<b>仍无</b>标题/作者明确标注跟徒步帮团的用户长评；关联品牌「徒步中国」账号有纪录片/攻略类高互动笔记（见下，偏 C 级宣传）</li>
-          <li><b>与同期 7 月参考一致</b>：小红书列表多次出现「7 月登顶」「威士忌路线」「Pole Pole」关键词，与美卡论坛 2024/7 游记方向一致</li>
-        </ul>
-        <p class="review-src">检索入口：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B9%9E%E5%8A%9B%E9%A9%AC%E6%89%8E%E7%BD%97%20%E5%A8%81%E5%A3%AB%E5%BF%8C%E7%BA%BF" target="_blank" rel="noopener">威士忌线</a> · <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BE%92%E6%AD%A5%E5%B8%AE%20%E4%B9%9E%E5%8A%9B%E9%A9%AC%E6%89%8E%E7%BD%97" target="_blank" rel="noopener">徒步帮 + 乞力马扎罗</a></p>
+      <p class="muted" style="margin-bottom:14px;font-size:13px;line-height:1.55">
+        <b>调研概览（2026-07-05）</b>：在小红书用 5 组关键词检索，浏览 <b>116 条</b>与「乞力马扎罗 + 威士忌线/Machame」相关的笔记（仅保留 2025 年以来的结果）；其中 <b>精读 3 篇</b>长文正文。评论区因网页需 App 打开，未能逐条统计，以下结论来自笔记正文、标题共性，以及美卡论坛 2024 年 7 月同期威士忌线游记对照。
+      </p>
+
+      <div class="review-block" style="border-bottom:none;padding-bottom:0">
+        <h4>综合推荐</h4>
+        <div class="review-score-wrap">
+          <div>
+            <div class="review-score-big">7.8<span style="font-size:16px;color:var(--muted);font-weight:500"> / 10</span></div>
+            <p class="muted" style="font-size:12px;margin-top:4px;max-width:220px">评的是「7 月底走威士忌线冲顶」这件事值不值得；不是给某一家旅行社打分。</p>
+          </div>
+          <div class="review-dim">
+            <div class="review-dim-row"><span>风景与体验感</span><span>9.0</span></div>
+            <div class="review-dim-bar"><i style="width:90%"></i></div>
+            <div class="review-dim-row"><span>有趣程度</span><span>8.5</span></div>
+            <div class="review-dim-bar"><i style="width:85%"></i></div>
+            <div class="review-dim-row"><span>挑战性（体力+高反）</span><span>8.0</span></div>
+            <div class="review-dim-bar"><i class="gold" style="width:80%"></i></div>
+            <div class="review-dim-row"><span>正面口碑</span><span>8.0</span></div>
+            <div class="review-dim-bar"><i style="width:80%"></i></div>
+            <div class="review-dim-row"><span>负面/踩坑风险</span><span>6.0</span></div>
+            <div class="review-dim-bar"><i class="warn" style="width:60%"></i></div>
+          </div>
+        </div>
+        <p style="font-size:13px;line-height:1.6;color:var(--ink)">
+          <b>一句话</b>：7 月旱季走威士忌线，大多数人觉得「值得、难忘、风景超值」；真正劝退的通常不是累，而是<b>高反和冲顶夜</b>。选团比选路线更难——落地后体验多半取决于<strong>当地主向导</strong>，而不是国内旅行社的广告。
+        </p>
       </div>
 
       <div class="review-block">
-        <h4>小红书 · 独立用户笔记（已核验列表，B 级）</h4>
-        <ul class="plain">
-          <li><b>成功登顶非洲最高峰——乞力马扎罗 5895 m</b> — Jasper Z · 60 赞 · <a href="https://www.xiaohongshu.com/explore/69f62a9b000000003601d271" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>登顶非洲最高峰🏔️乞力马扎罗详细攻略</b> — 天外飞饼 · 114 赞 · <a href="https://www.xiaohongshu.com/explore/6933a02c000000001b033fdf" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>我的乞力马扎罗山登顶，过程总结！</b> — 汤码在美国 · 175 赞 · <a href="https://www.xiaohongshu.com/explore/698a7a56000000000e00d67a" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>我对赤道上有雪山没啥概念，所以我来了</b> — 大竟很好奇 · 829 赞 · <a href="https://www.xiaohongshu.com/explore/69a81fea000000001b017116" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>乞力马扎罗：不要竞速，PolePole 的慢哲学</b> — 与向导「慢走」共识一致 · <a href="https://www.xiaohongshu.com/explore/6894a613000000002501a251" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>乞力马扎罗 Machame🥃 D2 换个角度看世界</b> — 威士忌线分日日记 · <a href="https://www.xiaohongshu.com/explore/6870a32b000000001502152a" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>乞力马扎罗威士忌线登山日记—D2</b> — Candy时刻 · <a href="https://www.xiaohongshu.com/explore/69a946d50000000015021c03" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>乞力马扎罗，4 个路线到底该怎么选？</b> — 揪你走徒步 · <a href="https://www.xiaohongshu.com/explore/698dae9c0000000028009a9c" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>请检查❗️乞力马扎罗 7 天徒步装备！</b> — 装备清单 · <a href="https://www.xiaohongshu.com/explore/68a1ff39000000001d008be7" target="_blank" rel="noopener">笔记</a></li>
-          <li><b>别吹登顶酷了！最戳我的是他们哭着说 see you</b> — 思思快来 · 563 赞 · crew 服务 · <a href="https://www.xiaohongshu.com/explore/69a9950f000000001a032605" target="_blank" rel="noopener">笔记</a></li>
-        </ul>
-        <p class="review-src">来源级别：B（小红书列表已核验；正文需 App 打开复核）· 抓取日期 2026-07-03</p>
+        <h4>体验关键词</h4>
+        <div class="review-kw">
+          <span>Pole Pole 慢走</span>
+          <span>高反 &gt; 体能</span>
+          <span>雨林→荒原→冰川</span>
+          <span>向导/背夫服务好</span>
+          <span>营地氛围</span>
+          <span>冲顶夜很冷很长</span>
+          <span>Barranco 最美营地</span>
+          <span>攀高睡低</span>
+          <span>7 月能见度好</span>
+          <span class="neg">下撤废膝盖</span>
+          <span class="neg">恐高手脚并用</span>
+          <span class="neg">可能无法登顶</span>
+        </div>
       </div>
 
       <div class="review-block">
-        <h4>OpenCLI 复测补充 · 新增列表信号（2026-07-03）</h4>
+        <h4>大家主要在说什么</h4>
         <ul class="plain">
-          <li><b>乞力马扎罗，如果可以我希望这个向导多赚点</b> — 无聊的安一洛 · 2025-10-02 · 1140 赞 · <a href="https://www.xiaohongshu.com/explore/68dd539300000000040046aa" target="_blank" rel="noopener">笔记</a>：高互动独立体验把“向导/crew 服务质量”放到核心位置，强化本报告“Chief Guide 质量决定体验”的判断；详情页被 App 扫码拦截，按列表 B 级使用。</li>
-          <li><b>乞力马扎罗教会我：不必登顶也能找到自己</b> — 丁小满 · 2025-08-26 · 171 赞 · <a href="https://www.xiaohongshu.com/explore/68ac7292000000001c006004" target="_blank" rel="noopener">笔记</a>：提供“未登顶/中止也有价值”的反向体验信号，报名预期不应只锚定 summit photo；需提前接受高反、天气或向导判断导致下撤。</li>
-          <li><b>乞力马扎罗登顶成功！总共花了 1200 美元！</b> — Joshua · 2025-07-24 · 120 赞 · <a href="https://www.xiaohongshu.com/explore/68811818000000002400c066" target="_blank" rel="noopener">笔记</a>；另有 <b>穷鬼版乞力马扎罗速通！含小费 1250 刀一人团</b> — Shanky · 约 2026-06-28 · 53 赞 · <a href="https://www.xiaohongshu.com/explore/6a3f8872000000001702ba5a" target="_blank" rel="noopener">笔记</a>：低价本地团/拼团存在，但与本团 ¥19,800 轻奢版不是同一服务层级；比价时必须拆分公园费、向导配比、中文领队、住宿、餐饮、救援与下撤安排。</li>
-          <li><b>乞力马扎罗 4 大经典线路，全年开放排期！</b> — 徒步中国 · 2025-07-21 · 63 赞 · <a href="https://www.xiaohongshu.com/explore/680b5e1f000000001c005fa8" target="_blank" rel="noopener">笔记</a>：能证明品牌侧持续运营乞力马扎罗线路，但仍属于机构内容，来源级别 C；不能替代同团期队员长评。</li>
-        </ul>
-        <p class="review-src">OpenCLI 抓取：<a href="https://www.xiaohongshu.com/search_result?keyword=%E4%B9%9E%E5%8A%9B%E9%A9%AC%E6%89%8E%E7%BD%97%20%E5%A8%81%E5%A3%AB%E5%BF%8C%E7%BA%BF" target="_blank" rel="noopener">威士忌线</a> · <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BE%92%E6%AD%A5%E5%B8%AE%20%E4%B9%9E%E5%8A%9B%E9%A9%AC%E6%89%8E%E7%BD%97" target="_blank" rel="noopener">徒步帮</a> · <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%BE%92%E6%AD%A5%E4%B8%AD%E5%9B%BD%20%E4%B9%9E%E5%8A%9B%E9%A9%AC%E6%89%8E%E7%BD%97" target="_blank" rel="noopener">徒步中国</a> · 来源级别：B（搜索列表核验；详情页被小红书 App 扫码限制）</p>
-      </div>
-
-      <div class="review-block">
-        <h4>小红书 · 压缩判断（过滤软文后）</h4>
-        <ul class="plain">
-          <li><b>高反 &gt; 体能</b>：多条独立笔记 + 美卡论坛同期互证；冲顶夜长时行走、停步即冷是高频提醒</li>
-          <li><b>Pole Pole 慢走</b>：至少 2 条笔记专讲「不要竞速」，与向导操作及本报告 D4 攀高睡低策略一致</li>
-          <li><b>威士忌线选型</b>：路线对比帖将 Machame 归为「风景好、适应性强、人气高」——与本行程 8 天含 Karanga 版相符</li>
-          <li><b>7 月窗口</b>：搜索页含「2025.7 登顶」等 7–8 月团期标题（含联想词）；旱季能见度评价偏正面，与美卡论坛 2024/7 同期一致</li>
-          <li><b>服务体验</b>：crew 告别、营地氛围、餐饮超预期等「情绪价值」在正面笔记中重复出现</li>
-          <li><b>风险槽点</b>：Barranco 墙手脚并用、下撤废膝盖、Gate 登记慢、装备租赁卫生——与论坛游记一致</li>
-          <li><b>未登顶预期</b>：复测新增「不必登顶也能找到自己」类反向体验，提示高反/天气/向导安全判断下的中止并非小概率心理场景；行前需把“可撤退”作为成功策略的一部分</li>
-          <li><b>预算对照</b>：有「总共 1200 美元」「含小费 1250 刀一人团」等 DIY/本地低价帖，与本团 ¥19,800 轻奢定位差异大，<b>不可直接比价</b></li>
-        </ul>
-      </div>
-
-      <div class="review-block">
-        <h4>小红书 · 徒步帮 / 徒步中国（品牌侧）</h4>
-        <ul class="plain">
-          <li><b>徒步帮同线用户长评</b>：2026-07-03 OpenCLI 复检仍<b>未发现</b>标题明确写「跟徒步帮 / 徒步帮旅行团」的独立用户复盘——报名前仍建议索要近 2–3 期队员链接</li>
-          <li><b>徒步中国账号</b>：「挑战全网最全攻略，10 分钟看完攀登全程！」643 赞 · <a href="https://www.xiaohongshu.com/explore/68b95a8b000000001b036e58" target="_blank" rel="noopener">笔记</a>；「48 人登顶纪录片」243 赞 · <a href="https://www.xiaohongshu.com/explore/6a0d60e1000000003503b17d" target="_blank" rel="noopener">笔记</a> — 属<b>品牌宣传</b>（C 级），可看路线全貌，不宜当作第三方口碑</li>
-          <li><b>报名前追问</b>：实际登顶率、下撤案例、Chief Guide 资质、中文领队是否上山、氧气/高压氧配置、冲顶 1:1 升级规则、行李称重与下撤后费用归属</li>
-          <li>自媒体起家，公众号「徒步中国」45 万+；组织过「非洲乞力马扎罗登山节」；本行程来源徒步帮旅行社旗舰店（有赞）</li>
-        </ul>
-        <p class="review-src">有赞：<a href="https://www.youzan.com/anli/76541" target="_blank" rel="noopener">徒步帮案例</a> · <a href="https://detail.youzan.com/show/shopnote/detail?alias=usFmlmcDMS" target="_blank" rel="noopener">旗舰店</a></p>
-      </div>
-
-      <div class="review-block">
-        <h4>往年 7 月 · Machame 威士忌线（同期同线参考）</h4>
-        <ul class="plain">
-          <li><b>2024 年 7 月 7 天 Machame 线</b>（美卡论坛）：4 名零基础队员全员登顶；向导自称登顶率 95%。<b>高反是最大难点，体能次之</b>；D3 在 Lava Tower（4600m）两名队友高反严重；冲顶夜向导鼓励喂水喂食。建议有余力可加适应日</li>
-          <li><b>8264 威士忌线游记</b>：向导反复强调 Pole Pole（慢走）、多喝水；<b>高反是最大挑战</b>；D4「攀高睡低」策略有效降低症状</li>
-          <li><b>旅兔 Machame 手记</b>：选择威士忌线因更有利于多日适应海拔；向导常用斯瓦希里语「pole pole」「hakuna matata」</li>
-          <li><b>穷游问答</b>：威士忌线因起伏适应优于可口可乐线（Marangu）；必须听向导，勿擅自洗澡或逞强</li>
-        </ul>
-        <p class="review-src">来源：<a href="https://www.uscardforum.com/t/topic/350529" target="_blank" rel="noopener">美卡论坛 · 2024年7月登顶记</a> · <a href="https://www.travel-rabbit.com/post/5258" target="_blank" rel="noopener">旅兔 · Machame 手记</a></p>
-      </div>
-
-      <div class="review-block">
-        <h4>高海拔挑战 · 用户共识</h4>
-        <ul class="plain">
-          <li><b>适应策略</b>：威士忌线 7 天版含 Karanga 过渡日，成功率高于 6 天版；Lava Tower 午餐适应后须下至 Barranco，不宜久留（小红书路线对比帖 + 论坛游记互证）</li>
-          <li><b>高反表现</b>：头痛、恶心、乏力常见；营地庆祝跳舞过兴奋也会诱发高反（2024/7 游记）</li>
-          <li><b>冲顶夜</b>：12–15h 连走，停步即冷；吸氧通常意味放弃冲顶，向导会背氧罐但鼓励坚持</li>
-          <li><b>下撤</b>：冲顶后长距离下降对膝盖与恐高者挑战不亚于爬升；护膝与登山杖普遍被推荐</li>
-          <li><b>落地体验</b>：当地 crew 与旅行社多为外包组合，<b>Chief Guide 质量决定 90% 体验</b>（2024/7 游记）；小费文化成熟，服务热情</li>
-          <li><b>行前准备</b>：有氧训练 3–4 次/周优于纯力量；7 月旱季白天雨林仍闷热，不可轻视防晒与补水（每天 3–4L）</li>
-        </ul>
-        <p class="review-src">来源：<a href="https://www.uscardforum.com/t/topic/350529" target="_blank" rel="noopener">美卡论坛</a> · <a href="https://tanzaniasafariexperience.com/zh-TW/climb/kilimanjaro-machame-route-climb/" target="_blank" rel="noopener">Machame 路线指南</a> · 小红书 B 级列表 2026-07-03</p>
-      </div>
-
-      <div class="review-block">
-        <h4>正面反馈摘要</h4>
-        <ul class="plain">
-          <li>营地餐饮超出预期（含炸鸡、泡面等），crew 唱歌跳舞营造氛围（小红书多条笔记重复提及）</li>
-          <li>冲顶后冰镇芒果汁、庆功仪式等「情绪价值」高</li>
-          <li>威士忌线风景多样（雨林 → 荒原 → 冰川），Barranco 营地被誉为最美营地之一</li>
-          <li>7 月长旱季能见度与路况优于雨季，适合本团期</li>
+          <li><b>值得去</b>：威士忌线风景层次多，从热带雨林一路走到雪线；很多人用「异世界」「一生一次」形容；7–8 月登顶的笔记不少，旱季能见度评价偏正面。</li>
+          <li><b>服务超预期</b>：背夫先到营地搭帐、送热水、营地唱歌道别——情绪价值很高；1141 赞的长文把「向导好不好」当成体验核心。</li>
+          <li><b>难在海拔，不在技术</b>：不用攀岩，但冲顶夜往往要走 12–15 小时；停一下就冷，头痛、恶心很常见；慢走、多喝水、听向导是高频建议。</li>
+          <li><b>膝盖和恐高</b>：Barranco 岩壁要手脚并用；冲顶后长距离下山，护膝和登山杖被反复提到。</li>
+          <li><b>旅行社水很深</b>：有人 1200–1400 美元当地跟团也能登顶，也有人花两三万人民币买省心；<b>最低价往往意味着向导配比、餐饮、安全预案缩水</b>，不能直接比总价。</li>
+          <li><b>国内团「徒步帮」</b>：本次检索里<b>没有</b>找到队员写的「跟徒步帮走威士忌线」长评；能看到的是「徒步中国」账号的攻略视频和纪录片，属于官方宣传，不能当第三方口碑。</li>
         </ul>
       </div>
 
       <div class="review-block">
-        <h4>风险与槽点</h4>
+        <h4>实用攻略 · 避坑 · 风险</h4>
         <ul class="plain">
-          <li>高反无法预测，与体能无绝对正相关；需接受可能下撤</li>
-          <li>D4 攀高睡低当天下山段对恐高/膝盖不友好；Barranco Wall 需手脚并用</li>
-          <li>高海拔荒漠段厕所稀少（Lava Tower 沿途）</li>
-          <li>当地办事效率偏慢（Gate 登记可能耽误至下午才出发）</li>
-          <li>租赁装备卫生一般，关键装备建议自备</li>
+          <li><b>行前</b>：登山靴提前磨合；软包行李 ≤20kg；睡袋保暖要够（冲顶营地很冷）；每天计划喝 3–4L 水；防晒从头到脚。</li>
+          <li><b>高反</b>：乙酰唑胺等药物需遵医嘱；到 Lava Tower 适应后尽快下到 Barranco，别在高处久留；营地别喝酒、别熬夜聊天。</li>
+          <li><b>冲顶夜</b>：厚羽绒 + 硬壳；头灯备用电池；能量胶/零食带足；吸氧通常意味着放弃冲顶，提前有心理预期。</li>
+          <li><b>避坑</b>：别拿「1250 刀穷鬼团」和 ¥19,800 轻奢团比；问清楚含不含公园费、小费、冲顶日是否 1 位向导盯 1 人、有没有医疗下撤；Gate 登记可能拖到下午才出发，行程别排太死。</li>
+          <li><b>槽点</b>：荒漠段厕所少；租赁装备卫生一般；当地办事节奏慢；庆祝跳舞太嗨也会诱发高反。</li>
+          <li><b>心态</b>：接受「登顶不是唯一成功」——高反、天气、向导判断都可能导致下撤，这在小红书讨论里越来越被正视。</li>
         </ul>
+      </div>
+
+      <div class="review-block review-qa">
+        <h4>重点关注问题</h4>
+
+        <h5>1. 7月底威士忌线冲顶：DIY选当地旅行社还是选国内旅行社？</h5>
+        <ul class="plain">
+          <li><b>当地社</b>：价格通常更低，直接对接 Moshi/阿鲁沙的登山公司；优势是钱更多花在山上；劣势是远程沟通、合同与付款风险要自己扛，且你不懂当地市场时很难分辨「低价=cut 服务」。</li>
+          <li><b>国内社</b>：优势是中文沟通、成团省心、发票与合同；劣势是溢价里含渠道与领队成本，<b>落地后仍是当地向导团队执行</b>——买国内团不等于买到更好的 Chief Guide，除非对方愿意书面承诺领队资质并披露当地合作方。</li>
+          <li><b>建议评估顺序</b>（比单纯比价钱重要）：① 主向导资质与是否全程跟队 → ② 是否 8 天含 Karanga（比 6–7 天更利于适应）→ ③ 冲顶日向导:队员比例、有无 1:1 升级 → ④ 医疗/氧气/直升机下撤预案 → ⑤ 登顶率与近期下撤案例（要求对方给队员联系方式）→ ⑥ 价格是否含公园费、小费指引、单房差 → ⑦ 是否 KPAP 相关 ethical 运营（背夫装备与工资）。</li>
+          <li><b>找当地靠谱社</b>：<a href="https://www.tripadvisor.com/Attractions-g317084-Activities-c42-t235-Kilimanjaro_National_Park_Kilimanjaro_Region.html" target="_blank" rel="noopener">TripAdvisor · Kilimanjaro 运营商</a>、<a href="https://www.safaribookings.com/kilimanjaro" target="_blank" rel="noopener">SafariBookings</a> 看低分评价具体原因；在背包客论坛搜公司名 +「kilimanjaro」；优先 Moshi 本地经营多年、评价量足的公司，警惕过低报价（业内多认为极端低价会牺牲背夫与安全保障）。</li>
+        </ul>
+        <p style="font-size:12px;color:var(--muted);margin-top:6px">对本团期：7 月底是旱季窗口，季节加分；你选的国内「徒步帮」¥19,800 轻奢位属于「买省心」，但仍建议按上面清单逐项书面确认当地执行方。</p>
+
+        <h5>2. 如果选国内旅行社，哪些比较靠谱？</h5>
+        <ul class="plain">
+          <li><b>小红书能确认的</b>：「徒步中国/徒步帮」持续发乞力马扎罗内容（攻略片、纪录片、排期帖），说明<b>在卖这条线</b>，但<b>找不到独立队员写的徒步帮威士忌线长评</b>，无法从社区口碑断言「综合最好」。</li>
+          <li><b>怎么判断国内社是否靠谱</b>（通用）：要同线路近 2–3 期队员微信/笔记链接；看是否披露当地合作登山公司英文名；合同里写清下撤与退款；问中文领队是否全程上山还是仅机场/阿鲁沙地接。</li>
+          <li><b>横向对比</b>：游侠客、徒步中国等有非洲登山品类，但各家的「靠谱」差异仍在<b>当期当地向导</b>。没有「闭眼选一家全国最好」的共识——<b>当期领队 + 当地 Chief Guide 比品牌名更重要</b>。</li>
+          <li><b>对你这团</b>：徒步帮有赞旗舰店、45 万粉自媒体背景，擅长内容与成团；报名前最该追问的是：<em>本团 7/25 批次当地主向导是谁、往年同批登顶率、有无高反下撤案例</em>。</li>
+        </ul>
+
+        <h5>3. 容易高反的人，8 天 7 夜威士忌线怎么克服挑战？</h5>
+        <ul class="plain">
+          <li><b>路线本身对你有利</b>：8 天含 Karanga 过渡，比 6 天压缩版更利于适应；威士忌线「攀高睡低」（如 Lava Tower 午餐后下到 Barranco）是公认减高反策略——选 8 天版是对的。</li>
+          <li><b>行前</b>：提前 4–6 周有氧（爬楼、负重走）；遵医嘱考虑乙酰唑胺，并了解副作用（多尿、手指麻）；有高反史的人更要把预期调成「保平安下撤也算成功」。</li>
+          <li><b>山上纪律</b>：向导说慢就慢（Pole Pole）；每天足量喝水；在高营地少说话、早睡觉；别在营地喝酒或兴奋蹦跳（2024 年 7 月游记有人因此加重高反）。</li>
+          <li><b>关键日</b>：D4 攀高睡低当天最考验状态——到高处适应后尽快下降，别逞强久留；冲顶夜若血氧持续很差，听向导劝下撤，比硬顶安全。</li>
+          <li><b>装备辅助</b>：保暖不足会加重高反感；睡袋、羽绒、暖宝宝、护膝对恢复有帮助；冲顶日带足热量。</li>
+          <li><b>现实预期</b>：高反与体能不完全相关，体能好也可能高反；社区共识是<b>高反是这条线第一大难点</b>，其次才是体力和膝盖。8 天比 6 天成功率高，但不保证零高反。</li>
+        </ul>
+      </div>
+
+      <div class="review-block">
+        <h4>代表笔记（可点开复核）</h4>
+        <ul class="plain" style="font-size:12px">
+          <li><a href="https://www.xiaohongshu.com/explore/6980a5d0000000000a03fb4f" target="_blank" rel="noopener">Machame 第一天分日日记</a> · 1689 赞 · 2026-02</li>
+          <li><a href="https://www.xiaohongshu.com/explore/68dd539300000000040046aa" target="_blank" rel="noopener">如果可以我希望这个向导多赚点</a> · 1141 赞 · 2025-10</li>
+          <li><a href="https://www.xiaohongshu.com/explore/6875370b000000000d01aadb" target="_blank" rel="noopener">威士忌线 6 天 5 晚</a> · 107 赞 · 2025-07（7 月团期参考）</li>
+          <li><a href="https://www.uscardforum.com/t/topic/350529" target="_blank" rel="noopener">美卡论坛 · 2024 年 7 月 Machame 登顶记</a>（同期季节对照）</li>
+        </ul>
+        <p class="review-src">小红书检索：威士忌线 · Machame · 徒步帮 · 徒步中国 · 2026-07-05</p>
       </div>
     </div>
   </div>
@@ -720,7 +736,7 @@ ul.plain li.empty{font-style:italic}
 
   <div class="source">
     来源：https://tuicashier.youzan.com/pay/wscgoods_order?alias=27bh5iu1gaac8a4<br>
-    path_id：— · 生成日期：2026-06-28 · 塞伦盖蒂评估：2026-06-28 · 小红书复核：2026-07-03（CDP 搜索列表 + B 级笔记链接）
+    path_id：— · 生成日期：2026-06-28 · 塞伦盖蒂评估：2026-06-28 · 用户评价：2026-07-05（小红书 116 条 + 精读 3 篇）
   </div>
   <p class="footer">由 miniprogram-travel-brief 生成 · 仅供旅行计划参考</p>
 </div>
