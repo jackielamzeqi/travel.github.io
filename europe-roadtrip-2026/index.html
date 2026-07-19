@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="2026 欧洲户外自驾旅行决策信息图：米兰、波罗的海、芬兰与冰岛的可视化互动路线评估。">
+<meta name="description" content="2026 欧洲户外自驾旅行决策信息图：米兰、立陶宛库尔斯沙嘴、冰岛、芬兰、爱沙尼亚与瑞典的可视化互动路线评估。">
 <title>欧洲户外自驾旅行决策｜2026</title>
-<link rel="preconnect" href="https://unpkg.com">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynh17g0lMZq9lC4K0t5dK2g4u0QY=" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynh17g0lMZq9lC4K0t5dK2g4u0QY=" crossorigin="">
 <style>
 :root{
   --bg:#07110f;--bg2:#0b1815;--panel:#10221e;--panel2:#142a25;--line:#29443d;
@@ -42,7 +42,7 @@ h1{font-size:clamp(34px,6vw,68px);line-height:1.08;letter-spacing:-.04em;margin:
 .card{background:rgba(16,34,30,.9);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
 .route-switch{display:inline-flex;padding:4px;background:#091713;border:1px solid var(--line);border-radius:14px;gap:4px}
 .route-switch button{border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer}
-.route-switch button.active{background:var(--green);color:#052019;font-weight:700}
+.route-switch button.active{background:var(--green);border-color:var(--green);color:#052019;font-weight:700}
 .map-layout{display:grid;grid-template-columns:1.55fr .75fr;gap:16px}
 #map{height:520px;border-radius:18px;background:#0c1a17}
 .map-card{overflow:hidden;position:relative}
@@ -89,17 +89,17 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 <header class="hero">
   <div class="wrap">
     <div class="eyebrow">2026 · 户外优先 · 自驾决策版</div>
-    <h1>欧洲旅行，应该从“城市打卡”改成“景观公路旅行”</h1>
-    <p class="lead">结合你已探索 34 国、欧洲 10 国的旅行足迹，将原始的多城市跳转路线，重构为两段自驾：波罗的海国家公园串联 + 冰岛南岸公路。核心结论：建议去，但删除斯德哥尔摩，把时间留给冰岛。</p>
+    <h1>欧洲旅行：米兰、库尔斯沙嘴、冰岛与波罗的海邮轮</h1>
+    <p class="lead">基于你最新确认的行程：9.25 抵达米兰，9.26 前往立陶宛纽尔维斯（库尔斯沙嘴），9.28 下午飞冰岛，10.3 凌晨飞赫尔辛基（中转 12 小时，20:40 抵达），10.4 晚上塔林坐邮轮到斯德哥尔摩，10.5 返回米兰。地图上已标记所有地点与衔接交通。</p>
     <div class="hero-actions">
       <a class="btn primary" href="#decision">查看最终决策</a>
       <a class="btn" href="#itinerary">查看每日路线</a>
     </div>
     <div class="metrics">
-      <div class="metric"><div class="label">全球足迹</div><div class="value">34 → 39 国</div><div class="sub">新增立陶宛、拉脱维亚、爱沙尼亚、芬兰、冰岛</div></div>
+      <div class="metric"><div class="label">全球足迹</div><div class="value">34 → 39 国</div><div class="sub">新增立陶宛、冰岛、芬兰、爱沙尼亚、瑞典</div></div>
       <div class="metric"><div class="label">欧洲覆盖</div><div class="value">22.7% → 34.1%</div><div class="sub">10/44 国提升至 15/44 国</div></div>
-      <div class="metric"><div class="label">户外有效时间</div><div class="value">约 55 小时</div><div class="sub">国家公园、湖区、海岸与冰川景观</div></div>
-      <div class="metric"><div class="label">自驾规模</div><div class="value">约 2,100 km</div><div class="sub">波罗的海约 750 km + 冰岛约 1,350 km</div></div>
+      <div class="metric"><div class="label">户外有效时间</div><div class="value">约 60 小时</div><div class="sub">沙嘴、国家公园、冰川、瀑布与海岸</div></div>
+      <div class="metric"><div class="label">自驾 + 邮轮规模</div><div class="value">约 1,800 km</div><div class="sub">立陶宛/冰岛自驾 + 两段波罗的海渡轮</div></div>
     </div>
   </div>
 </header>
@@ -108,22 +108,22 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <div><h2>路线地图</h2><p>切换查看原始草案与户外优先方案；点击地图标记查看当天重点。</p></div>
+      <div><h2>路线地图</h2><p>切换查看原草案与 2026 最终方案；点击地图标记查看当天重点与交通方式。</p></div>
       <div class="route-switch" aria-label="路线方案切换">
-        <button id="originalBtn" type="button">原始草案</button>
-        <button id="optimizedBtn" class="active" type="button">户外优先方案</button>
+        <button id="originalBtn" type="button">原草案</button>
+        <button id="optimizedBtn" class="active" type="button">2026 最终方案</button>
       </div>
     </div>
     <div class="map-layout">
       <div class="card map-card">
         <div id="map" aria-label="欧洲旅行路线互动地图"></div>
-        <div class="map-legend"><span><i class="dot drive"></i>自驾</span><span><i class="dot flight"></i>飞行</span><span><i class="dot ferry"></i>轮渡</span></div>
+        <div class="map-legend"><span><i class="dot drive"></i>自驾</span><span><i class="dot flight"></i>飞行</span><span><i class="dot ferry"></i>轮渡/邮轮</span></div>
       </div>
       <aside class="card summary-panel">
-        <h3 class="summary-title" id="routeTitle">户外优先方案</h3>
-        <div class="summary-item"><strong id="routeScore">8.3 / 10</strong><span>按当前默认权重计算的旅行匹配度</span></div>
-        <div class="summary-item"><strong id="routeTransfers">6 次核心转场</strong><span>相比原草案减少城市切换，增加连续景观体验</span></div>
-        <div class="summary-item"><strong id="routeOutdoor">70% 户外内容</strong><span>湖区、森林、湿地、海岸、瀑布、冰川</span></div>
+        <h3 class="summary-title" id="routeTitle">2026 最终方案</h3>
+        <div class="summary-item"><strong id="routeScore">8.0 / 10</strong><span>按当前默认权重计算的旅行匹配度</span></div>
+        <div class="summary-item"><strong id="routeTransfers">6 次核心转场</strong><span>米兰↔纽尔维斯、纽尔维斯↔冰岛、冰岛↔赫尔辛基、赫尔辛基↔塔林、塔林↔斯德哥尔摩、斯德哥尔摩↔米兰</span></div>
+        <div class="summary-item"><strong id="routeOutdoor">65% 户外内容</strong><span>沙嘴、冰岛南岸、冰川、瀑布与海岸</span></div>
         <div class="route-line" id="routeList"></div>
       </aside>
     </div>
@@ -132,7 +132,7 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><div><h2>已确认往返航班</h2><p>国际段逻辑顺；真正需要确认的是三段欧洲内部航班与跨境异地还车。</p></div></div>
+    <div class="section-head"><div><h2>已确认与待确认航班</h2><p>国际往返段逻辑顺；需要尽快核实的主要是四段欧洲内部航班与两段渡轮/邮轮。</p></div></div>
     <div class="flight-grid">
       <article class="card flight-card">
         <span class="tag">去程 · 9月24–25日</span><h3>香港 HKG → 米兰 MXP</h3>
@@ -147,7 +147,35 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
         <div class="flight-step"><time>19:40</time><div>阿布扎比 AUH<small>中转 1小时30分，无需过境签，行李直挂</small></div></div>
         <div class="flight-step"><time>21:10</time><div>阿布扎比 AUH<small>阿提哈德 EY870</small></div></div>
         <div class="flight-step"><time>09:00</time><div>香港机场 T1<small>10月7日抵达</small></div></div>
-        <div class="notice">10月5日必须回到米兰或 MXP 周边过夜，不建议当天从冰岛转机衔接返程。</div>
+        <div class="notice">10月5日必须回到米兰或 MXP 周边过夜，不建议当天从斯德哥尔摩晚班机衔接返程。</div>
+      </article>
+      <article class="card flight-card">
+        <span class="tag">区域 · 9月25–26日</span><h3>米兰 → 维尔纽斯 / 考纳斯 → 纽尔维斯</h3>
+        <div class="flight-step"><time>待定</time><div>米兰 → 维尔纽斯 VNO 或 考纳斯 KUN<small>区域航班待确认；立陶宛境内租车自驾约 320 km 到库尔斯沙嘴</small></div></div>
+        <div class="flight-step"><time>9/26</time><div>纽尔维斯（库尔斯沙嘴）<small>建议抵达日只安排沙丘日落与湖边散步</small></div></div>
+      </article>
+      <article class="card flight-card">
+        <span class="tag">区域 · 9月28日</span><h3>纽尔维斯 / 维尔纽斯 → 冰岛 KEF</h3>
+        <div class="flight-step"><time>下午</time><div>纽尔维斯 → 维尔纽斯机场<small>自驾还车或包车，约 320 km</small></div></div>
+        <div class="flight-step"><time>下午</time><div>维尔纽斯 → 雷克雅未克 KEF<small>区域航班待确认；优选含托运行李的廉航或 SAS</small></div></div>
+        <div class="notice">9/28 是衔接关键日：务必预留足够时间从沙嘴赶到机场，避免误机。</div>
+      </article>
+      <article class="card flight-card">
+        <span class="tag">区域 · 10月3日</span><h3>冰岛 KEF → 赫尔辛基 HEL</h3>
+        <div class="flight-step"><time>凌晨</time><div>雷克雅未克 KEF 起飞<small>红眼航班，具体航司待确认</small></div></div>
+        <div class="flight-step"><time>中转</time><div>某地中转 12 小时<small>可利用中转城市做半日停留，或机场休息</small></div></div>
+        <div class="flight-step"><time>20:40</time><div>抵达赫尔辛基 HEL<small>10月3日晚间抵达，直接入住机场或市中心酒店</small></div></div>
+      </article>
+      <article class="card flight-card">
+        <span class="tag">渡轮 · 10月4–5日</span><h3>赫尔辛基 → 塔林 → 斯德哥尔摩</h3>
+        <div class="flight-step"><time>白天</time><div>赫尔辛基 → 塔林<small>Tallink / Viking Line 约 2 小时，船班密集</small></div></div>
+        <div class="flight-step"><time>傍晚</time><div>塔林老城半日游<small>行李可寄存港口</small></div></div>
+        <div class="flight-step"><time>晚上</time><div>塔林 → 斯德哥尔摩<small>过夜邮轮（Tallink Silja / Viking Line），次日早晨抵达</small></div></div>
+      </article>
+      <article class="card flight-card">
+        <span class="tag">区域 · 10月5日</span><h3>斯德哥尔摩 → 米兰 MXP</h3>
+        <div class="flight-step"><time>上午</time><div>斯德哥尔摩港口 / 机场<small>邮轮早晨抵达，预留入境与转机时间</small></div></div>
+        <div class="flight-step"><time>下午</time><div>斯德哥尔摩 ARN → 米兰 MXP<small>区域航班待确认；务必在 10月5日傍晚前抵达米兰</small></div></div>
       </article>
     </div>
   </div>
@@ -155,10 +183,10 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><div><h2>方案对比</h2><p>原草案国家更多，但城市切换密度高；户外方案少去一个国家，却显著提升景观连续性。</p></div></div>
+    <div class="section-head"><div><h2>方案对比</h2><p>原草案国家更多、城市切换密度高；最终方案减少了波罗的海国家数量，但保留冰岛深度与波罗的海邮轮体验。</p></div></div>
     <div class="compare-grid">
       <article class="card compare-card">
-        <div class="compare-top"><div><h3>原始多城市方案</h3><p style="color:var(--muted);margin:5px 0">米兰 → 维尔纽斯 → 里加 → 塔林 → 赫尔辛基 → 冰岛 → 斯德哥尔摩</p></div><span class="pill">城市优先</span></div>
+        <div class="compare-top"><div><h3>原多城市草案</h3><p style="color:var(--muted);margin:5px 0">米兰 → 维尔纽斯 → 里加 → 塔林 → 赫尔辛基 → 冰岛 → 斯德哥尔摩</p></div><span class="pill">城市优先</span></div>
         <div class="score-list">
           <div class="score-row"><span>户外景观</span><div class="track"><div class="fill" style="width:76%"></div></div><b>7.6</b></div>
           <div class="score-row"><span>自驾匹配</span><div class="track"><div class="fill" style="width:45%"></div></div><b>4.5</b></div>
@@ -167,12 +195,12 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
         </div>
       </article>
       <article class="card compare-card recommended">
-        <div class="compare-top"><div><h3>户外自驾优化方案</h3><p style="color:var(--muted);margin:5px 0">湖区 → 波罗的海国家公园 → 芬兰森林 → 冰岛南岸</p></div><span class="pill good">推荐</span></div>
+        <div class="compare-top"><div><h3>2026 最终方案</h3><p style="color:var(--muted);margin:5px 0">米兰 → 纽尔维斯 → 冰岛 → 赫尔辛基 → 塔林 → 斯德哥尔摩 → 米兰</p></div><span class="pill good">推荐</span></div>
         <div class="score-list">
-          <div class="score-row"><span>户外景观</span><div class="track"><div class="fill" style="width:94%"></div></div><b>9.4</b></div>
-          <div class="score-row"><span>自驾匹配</span><div class="track"><div class="fill" style="width:89%"></div></div><b>8.9</b></div>
-          <div class="score-row"><span>物流可控</span><div class="track"><div class="fill" style="width:64%"></div></div><b>6.4</b></div>
-          <div class="score-row"><span>旅行新鲜度</span><div class="track"><div class="fill" style="width:90%"></div></div><b>9.0</b></div>
+          <div class="score-row"><span>户外景观</span><div class="track"><div class="fill" style="width:88%"></div></div><b>8.8</b></div>
+          <div class="score-row"><span>自驾匹配</span><div class="track"><div class="fill" style="width:82%"></div></div><b>8.2</b></div>
+          <div class="score-row"><span>物流可控</span><div class="track"><div class="fill" style="width:62%"></div></div><b>6.2</b></div>
+          <div class="score-row"><span>旅行新鲜度</span><div class="track"><div class="fill" style="width:92%"></div></div><b>9.2</b></div>
         </div>
       </article>
     </div>
@@ -181,7 +209,7 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 
 <section class="section" id="itinerary">
   <div class="wrap">
-    <div class="section-head"><div><h2>每日行程量化</h2><p>默认展示户外优先路线。点击“+”展开关键安排与风险控制。</p></div></div>
+    <div class="section-head"><div><h2>每日行程量化</h2><p>默认展示 2026 最终方案。点击“+”展开关键安排与风险控制。</p></div></div>
     <div class="day-tools" id="filters">
       <button class="active" data-filter="all" type="button">全部</button>
       <button data-filter="drive" type="button">自驾</button>
@@ -202,17 +230,17 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
         <label for="driving">自驾自由度重要度</label><div class="range-row"><input id="driving" type="range" min="0" max="100" value="25"><output>25%</output></div>
         <label for="logistics">物流简单度重要度</label><div class="range-row"><input id="logistics" type="range" min="0" max="100" value="20"><output>20%</output></div>
         <label for="weather">天气稳定性重要度</label><div class="range-row"><input id="weather" type="range" min="0" max="100" value="10"><output>10%</output></div>
-        <p style="color:var(--muted);font-size:13px;margin-top:18px">模型指标：景观 9.4、自驾 8.9、物流 6.4、天气稳定性 5.8。分值是决策辅助，不是客观结论。</p>
+        <p style="color:var(--muted);font-size:13px;margin-top:18px">模型指标：景观 8.8、自驾 8.2、物流 6.2、天气稳定性 5.8。分值是决策辅助，不是客观结论。</p>
       </div>
       <div class="card result-card" aria-live="polite">
         <div class="decision-label" id="decisionLabel">建议成行</div>
-        <div class="decision-score" id="decisionScore">8.3<span>/10</span></div>
-        <p id="decisionText" style="color:#c9ddd6">这条路线与你的偏好高度匹配。建议删除斯德哥尔摩，锁定两段自驾，并给冰岛天气保留一天弹性。</p>
+        <div class="decision-score" id="decisionScore">8.0<span>/10</span></div>
+        <p id="decisionText" style="color:#c9ddd6">这条路线与你的偏好高度匹配。关键控制点：9/28 纽尔维斯→冰岛的衔接、10/3 冰岛→赫尔辛基的红眼航班、以及 10/4 赫尔辛基→塔林→斯德哥尔摩的连续渡轮。</p>
         <div class="decision-reasons">
           <div class="reason">新增 5 个未探索欧洲国家，足迹提升明显。</div>
-          <div class="reason">连续公路景观比每天换城市更符合你的旅行方式。</div>
-          <div class="reason">冰岛 9月底至10月初可能提前入冬，必须保留可变更方案。</div>
-          <div class="reason">跨境异地还车和三段区域航班，是订票前的两个硬性检查点。</div>
+          <div class="reason">冰岛停留 5 晚，足够覆盖南岸与黄金圈，保留天气弹性。</div>
+          <div class="reason">库尔斯沙嘴与波罗的海邮轮是少见的组合体验。</div>
+          <div class="reason">10月5日返回米兰过夜，给 10月6日国际返程留出缓冲。</div>
         </div>
       </div>
     </div>
@@ -223,9 +251,12 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
   <div class="wrap">
     <div class="section-head"><div><h2>主要风险与控制</h2><p>不阻止成行，但必须在出票前完成检查。</p></div></div>
     <div class="risk-grid">
-      <article class="card risk"><strong>冰岛秋季天气</strong><p>秋季天气变化快，F 路通常只开放至9月中旬左右。路线限定在铺装主路与南岸，不进入高地。</p><span class="level high">高风险 · 可管理</span></article>
-      <article class="card risk"><strong>跨境异地还车</strong><p>维尔纽斯取车、塔林还车必须获得租车公司书面许可，并确认跨境费与异地还车费。</p><span class="level mid">中高风险</span></article>
-      <article class="card risk"><strong>区域航班衔接</strong><p>米兰→维尔纽斯、赫尔辛基→冰岛、冰岛→米兰的班期需以最终出票日核实，10月5日必须回米兰。</p><span class="level mid">中风险</span></article>
+      <article class="card risk"><strong>9/28 纽尔维斯→冰岛衔接</strong><p>从库尔斯沙嘴到维尔纽斯机场约 320 km，下午航班必须早晨就出发。建议前一晚住维尔纽斯或考纳斯。</p><span class="level high">高风险 · 可管理</span></article>
+      <article class="card risk"><strong>冰岛秋季天气</strong><p>9月底至10月初可能提前入冬，F 路通常只开放至9月中旬。路线限定在铺装主路与南岸，不进入高地。</p><span class="level high">高风险 · 可管理</span></article>
+      <article class="card risk"><strong>10/3 红眼航班 + 12h 中转</strong><p>冰岛凌晨起飞、中转 12 小时、20:40 抵达赫尔辛基，当天体力消耗大。10/4 不宜安排高强度活动。</p><span class="level mid">中风险</span></article>
+      <article class="card risk"><strong>10/4 连续渡轮衔接</strong><p>赫尔辛基→塔林、塔林→斯德哥尔摩两段船期必须精确衔接，港口行李寄存与时间冗余要提前确认。</p><span class="level mid">中风险</span></article>
+      <article class="card risk"><strong>10/5 斯德哥尔摩→米兰</strong><p>邮轮早晨抵达后需入境、取行李、去机场。建议买下午航班，避免误机影响 10/6 国际返程。</p><span class="level mid">中风险</span></article>
+      <article class="card risk"><strong>跨境租车</strong><p>立陶宛取车、冰岛还车不可行，必须分段租车；冰岛建议租 4WD，并在出票前确认车型与保险。</p><span class="level mid">中风险</span></article>
     </div>
   </div>
 </section>
@@ -235,10 +266,10 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
     <div class="section-head"><div><h2>资料来源</h2><p>路线为决策草案；航班、道路、天气、租车规则需在出发前再次确认。</p></div></div>
     <div class="source-list">
       <a href="https://jackielamzeqi.github.io/travel.github.io/global-travel-footprint/" target="_blank" rel="noopener">你的全球旅行足迹：34 国 / 欧洲 10 国</a>
-      <a href="https://www.latvia.travel/en/sight/gauja-national-park" target="_blank" rel="noopener">拉脱维亚官方旅游：高亚国家公园</a>
-      <a href="https://visitestonia.com/en/where-to-go/lahemaa-national-park-estonia" target="_blank" rel="noopener">爱沙尼亚官方旅游：拉赫马国家公园</a>
-      <a href="https://www.visitfinland.com/en/product/b55ef53e-4a9f-46b4-a116-f5aed5a5c8ad/nuuksio-national-park/" target="_blank" rel="noopener">芬兰官方旅游：努克西奥国家公园</a>
-      <a href="https://www.tallink.com/travelling/one-way/helsinki-tallinn-day-trip" target="_blank" rel="noopener">Tallink：塔林—赫尔辛基约 2 小时</a>
+      <a href="https://en.wikipedia.org/wiki/Curonian_Spit" target="_blank" rel="noopener">库尔斯沙嘴（Curonian Spit）概述</a>
+      <a href="https://www.visitlithuania.net/curonian-spit" target="_blank" rel="noopener">立陶宛旅游：库尔斯沙嘴与尼达</a>
+      <a href="https://www.tallink.com/" target="_blank" rel="noopener">Tallink：赫尔辛基—塔林—斯德哥尔摩船期</a>
+      <a href="https://www.vikingline.com/" target="_blank" rel="noopener">Viking Line：波罗的海邮轮</a>
       <a href="https://www.visiticeland.com/article/driving-in-iceland/" target="_blank" rel="noopener">冰岛官方旅游：自驾与道路类型</a>
       <a href="https://www.visiticeland.com/article/iceland-in-the-midseasons/" target="_blank" rel="noopener">冰岛官方旅游：秋季与 F 路开放风险</a>
       <a href="https://www.road.is/" target="_blank" rel="noopener">冰岛道路实时状态 Road.is</a>
@@ -248,13 +279,13 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 </main>
 
 <footer>
-  <div class="wrap footer-row"><span>欧洲户外自驾旅行决策信息图 · 更新于 2026-07-18</span><span>所有里程与时间为规划估算，不替代实时导航、航班与天气信息。</span></div>
+  <div class="wrap footer-row"><span>欧洲户外自驾旅行决策信息图 · 更新于 2026-07-19</span><span>所有里程与时间为规划估算，不替代实时导航、航班与天气信息。</span></div>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const routes={
- original:{title:'原始多城市方案',score:'6.8 / 10',transfers:'8 次核心转场',outdoor:'约 42% 户外内容',points:[
+ original:{title:'原多城市草案',score:'6.8 / 10',transfers:'8 次核心转场',outdoor:'约 42% 户外内容',points:[
   {name:'米兰',date:'9/25',lat:45.4642,lng:9.19,type:'flight',note:'落地休整与城市体验'},
   {name:'维尔纽斯',date:'9/26',lat:54.6872,lng:25.2797,type:'flight',note:'单日城市停留'},
   {name:'里加',date:'9/27',lat:56.9496,lng:24.1052,type:'drive',note:'老城与市场'},
@@ -263,40 +294,41 @@ const routes={
   {name:'雷克雅未克',date:'9/30–10/2',lat:64.1466,lng:-21.9426,type:'flight',note:'冰岛时间偏短'},
   {name:'斯德哥尔摩',date:'10/3–4',lat:59.3293,lng:18.0686,type:'flight',note:'新增一次大转场'},
   {name:'米兰',date:'10/5',lat:45.4642,lng:9.19,type:'flight',note:'返程缓冲'}]},
- optimized:{title:'户外优先方案',score:'8.3 / 10',transfers:'6 次核心转场',outdoor:'约 70% 户外内容',points:[
-  {name:'马焦雷湖 / 米兰',date:'9/25',lat:45.884,lng:8.535,type:'drive',note:'抵达日低强度湖区自驾'},
-  {name:'维尔纽斯 / 特拉凯',date:'9/26',lat:54.652,lng:24.934,type:'flight',note:'湖区、城堡与短徒步'},
-  {name:'高亚国家公园',date:'9/27',lat:57.1534,lng:24.854,type:'drive',note:'砂岩峡谷与森林步道'},
-  {name:'拉赫马国家公园',date:'9/28',lat:59.512,lng:25.96,type:'drive',note:'湿地、森林、海岸与渔村'},
-  {name:'塔林 → 赫尔辛基',date:'9/29',lat:59.7,lng:24.84,type:'ferry',note:'约2小时轮渡'},
-  {name:'努克西奥国家公园',date:'9/29',lat:60.312,lng:24.456,type:'drive',note:'森林湖泊与标记步道'},
-  {name:'雷克雅内斯 / Selfoss',date:'9/30',lat:63.933,lng:-21.0,type:'flight',note:'冰岛自驾起点'},
-  {name:'黄金圈',date:'10/1',lat:64.2559,lng:-21.129,type:'drive',note:'地质景观与瀑布'},
-  {name:'维克 / 南岸',date:'10/2',lat:63.4186,lng:-19.006,type:'drive',note:'黑沙滩、海蚀柱、瀑布'},
-  {name:'杰古沙龙冰河湖',date:'10/3',lat:64.0784,lng:-16.2306,type:'drive',note:'冰川与钻石沙滩'},
-  {name:'雷克雅未克 / KEF',date:'10/4',lat:64.1466,lng:-21.9426,type:'drive',note:'天气弹性与收尾'},
-  {name:'米兰 MXP',date:'10/5',lat:45.6306,lng:8.7281,type:'flight',note:'返程前一晚缓冲'}]}
+ optimized:{title:'2026 最终方案',score:'8.0 / 10',transfers:'6 次核心转场',outdoor:'约 65% 户外内容',points:[
+  {name:'米兰 MXP',date:'9/25',lat:45.6306,lng:8.7281,type:'flight',note:'香港飞抵，取车或城市休整'},
+  {name:'纽尔维斯（库尔斯沙嘴）',date:'9/26–27',lat:55.3035,lng:21.0036,type:'drive',note:'飞维尔纽斯/考纳斯后自驾约 320 km；沙丘、森林与海岸'},
+  {name:'雷克雅未克 KEF',date:'9/28',lat:64.1466,lng:-21.9426,type:'flight',note:'9/28 下午从维尔纽斯起飞，当晚抵达冰岛'},
+  {name:'黄金圈 / Selfoss',date:'9/29',lat:64.2559,lng:-21.129,type:'drive',note:'辛格韦德利、间歇泉、黄金瀑布'},
+  {name:'维克 / 南岸',date:'10/1',lat:63.4186,lng:-19.006,type:'drive',note:'Seljalandsfoss、Skógafoss、黑沙滩'},
+  {name:'杰古沙龙冰河湖',date:'10/2',lat:64.0784,lng:-16.2306,type:'drive',note:'冰川、钻石沙滩与东南部海岸'},
+  {name:'赫尔辛基 HEL',date:'10/3',lat:60.1699,lng:24.9384,type:'flight',note:'凌晨从 KEF 起飞，中转 12 小时，20:40 抵达'},
+  {name:'塔林',date:'10/4',lat:59.437,lng:24.7536,type:'ferry',note:'赫尔辛基→塔林约 2 小时渡轮，老城半日'},
+  {name:'斯德哥尔摩',date:'10/5',lat:59.3293,lng:18.0686,type:'ferry',note:'10/4 晚上塔林过夜邮轮，次日早晨抵达'},
+  {name:'米兰 MXP',date:'10/5',lat:45.6306,lng:8.7281,type:'flight',note:'下午飞回米兰，10/6 国际返程缓冲'}]}
 };
 const days=[
- {date:'9/24',dow:'周四',title:'香港出发',desc:'20:10 起飞，经阿布扎比前往米兰',tags:['transfer'],distance:'—',outdoor:'0h',score:6.8,detail:'长途飞行日。重点不是安排体验，而是降低睡眠债，为9月25日落地后的驾驶预留精力。'},
- {date:'9/25',dow:'周五',title:'米兰 → 马焦雷湖',desc:'06:45 抵达；休息后进行低强度湖区环线',tags:['drive','hike'],distance:'约110km',outdoor:'3h',score:8.5,detail:'建议 Stresa / Lago Maggiore，而不是高密度米兰打卡。抵达日避免长距离驾驶，下午湖边散步、观景台与早睡。'},
- {date:'9/26',dow:'周六',title:'米兰 → 维尔纽斯 / 特拉凯',desc:'区域航班待确认；抵达后湖区与城堡步行',tags:['transfer','hike'],distance:'约60km',outdoor:'4.5h',score:8.3,detail:'取波罗的海段车辆。若到达较晚，特拉凯改为次日清晨，避免夜间跨境长驾。'},
- {date:'9/27',dow:'周日',title:'维尔纽斯 → 高亚国家公园 → 里加',desc:'森林、砂岩峡谷、Sigulda 周边步道',tags:['drive','hike'],distance:'约370km',outdoor:'5h',score:9.0,detail:'当天里程较长，但景观收益高。建议只选一条2–3小时徒步，不叠加里加大量城市景点。'},
- {date:'9/28',dow:'周一',title:'里加 → 拉赫马国家公园 → 塔林',desc:'湿地木栈道、森林、波罗的海岸与渔村',tags:['drive','hike'],distance:'约360km',outdoor:'5h',score:9.2,detail:'这是波罗的海自驾高光日。异地还车建议安排在塔林市区或港口附近，次日步行上船。'},
- {date:'9/29',dow:'周二',title:'塔林 → 赫尔辛基 → 努克西奥',desc:'约2小时轮渡；下午芬兰森林湖区徒步',tags:['transfer','hike'],distance:'约70km',outdoor:'4h',score:8.8,detail:'轮渡替代飞行，体验更连贯。努克西奥距赫尔辛基较近，适合作为城市与自然之间的半日缓冲。'},
- {date:'9/30',dow:'周三',title:'赫尔辛基 → 冰岛',desc:'区域航班待确认；取4WD，雷克雅内斯或 Selfoss',tags:['transfer','drive','hike'],distance:'约130km',outdoor:'4h',score:8.7,detail:'进入冰岛后不追求景点数量。根据抵达时间、风速和路况，选择雷克雅内斯短环线或直接前往 Selfoss。'},
- {date:'10/1',dow:'周四',title:'黄金圈慢速自驾',desc:'辛格韦德利、间歇泉、黄金瀑布',tags:['drive','hike'],distance:'约240km',outdoor:'8h',score:9.5,detail:'以步行和地质景观为主，避免再塞入蓝湖。夜宿 Hella / Hvolsvöllur，为南岸减压。'},
- {date:'10/2',dow:'周五',title:'冰岛南岸 → 维克',desc:'Seljalandsfoss、Skógafoss、黑沙滩',tags:['drive','hike'],distance:'约285km',outdoor:'8h',score:9.7,detail:'景观密度极高。当天必须服从风速和海浪警告，黑沙滩只在安全区域停留。'},
- {date:'10/3',dow:'周六',title:'维克 → Skaftafell / 冰河湖',desc:'冰川景观、钻石沙滩；夜宿东南部或折返',tags:['drive','hike'],distance:'约320km',outdoor:'7h',score:9.8,detail:'全程最强景观日，也是天气风险最高的一天。若路况不佳，改为维克周边与峡谷，不强行到冰河湖。'},
- {date:'10/4',dow:'周日',title:'南岸 → 雷克雅未克 / KEF',desc:'返程驾驶 + 天气弹性；取消斯德哥尔摩',tags:['drive','hike'],distance:'约260km',outdoor:'5h',score:8.8,detail:'这一天的价值是“可调整”。天气好可补景点，天气差则直接回首都或机场附近，保证10月5日离境。'},
- {date:'10/5',dow:'周一',title:'冰岛 → 米兰',desc:'区域航班待确认；入住 MXP 周边',tags:['transfer','city'],distance:'短途',outdoor:'1.5h',score:7.4,detail:'不安排跨城。目标只有一个：确保第二天11:40国际返程不受影响。'},
+ {date:'9/24',dow:'周四',title:'香港出发',desc:'20:10 起飞，经阿布扎比前往米兰',tags:['transfer'],distance:'—',outdoor:'0h',score:6.8,detail:'长途飞行日。重点不是安排体验，而是降低睡眠债，为9月25日落地后的行程预留精力。'},
+ {date:'9/25',dow:'周五',title:'米兰抵达与休整',desc:'06:45 抵达；白天休息、轻量城市散步，准备次日转场',tags:['city'],distance:'短途',outdoor:'1h',score:7.2,detail:'抵达日避免高强度安排。若精力尚可，可在米兰大教堂周边或纳维利运河区散步；傍晚早睡。'},
+ {date:'9/26',dow:'周六',title:'米兰 → 纽尔维斯（库尔斯沙嘴）',desc:'飞维尔纽斯或考纳斯，自驾前往立陶宛库尔斯沙嘴',tags:['transfer','drive'],distance:'约320km',outdoor:'2h',score:7.8,detail:'建议上午航班，中午取车，下午抵达纽尔维斯。当天只安排沙丘日落与湖边散步，不进入高强度徒步。'},
+ {date:'9/27',dow:'周日',title:'库尔斯沙嘴深度日',desc:'Parnidis Dune、Dead Dunes、海边森林与渔村尼达',tags:['drive','hike'],distance:'约80km',outdoor:'6h',score:9.2,detail:'沙嘴是高光户外日。建议清晨上 Parnidis Dune 看日出，下午走海边森林步道，晚上在尼达用餐。'},
+ {date:'9/28',dow:'周一',title:'纽尔维斯 → 冰岛',desc:'上午退房返维尔纽斯机场，下午飞雷克雅未克 KEF',tags:['transfer','drive'],distance:'约320km',outdoor:'1h',score:7.5,detail:'关键衔接日。务必早出发，预留 320 km 驾驶 + 还车 + 登机时间。抵达冰岛后取车直接入住机场或雷克雅未克附近。'},
+ {date:'9/29',dow:'周二',title:'黄金圈慢速自驾',desc:'辛格韦德利、间歇泉、黄金瀑布，夜宿 Selfoss / Hella',tags:['drive','hike'],distance:'约200km',outdoor:'7h',score:9.4,detail:'以步行和地质景观为主，避免塞入蓝湖。根据天气决定是否加长徒步。'},
+ {date:'9/30',dow:'周三',title:'冰岛南岸 → 维克',desc:'Seljalandsfoss、Skógafoss、黑沙滩、Dyrhólaey',tags:['drive','hike'],distance:'约260km',outdoor:'8h',score:9.6,detail:'景观密度极高。当天必须服从风速和海浪警告，黑沙滩只在安全区域停留。'},
+ {date:'10/1',dow:'周四',title:'维克 → Skaftafell / 冰河湖',desc:'冰川景观、钻石沙滩、斯卡夫塔山短途徒步',tags:['drive','hike'],distance:'约280km',outdoor:'7h',score:9.8,detail:'全程最强景观日，也是天气风险最高的一天。若路况不佳，改为维克周边与峡谷，不强行到冰河湖。'},
+ {date:'10/2',dow:'周五',title:'冰岛东南部 → 雷克雅未克 / KEF',desc:'返程驾驶 + 天气弹性；补拍景点或直接回首都',tags:['drive','hike'],distance:'约320km',outdoor:'5h',score:8.8,detail:'这一天的价值是“可调整”。天气好可补冰河湖或峡谷，天气差则直接回 KEF 附近，保证次日红眼航班。'},
+ {date:'10/3',dow:'周六',title:'冰岛 → 赫尔辛基',desc:'凌晨飞赫尔辛基，中转 12 小时，20:40 抵达',tags:['transfer'],distance:'—',outdoor:'0h',score:6.8,detail:'红眼航班 + 长中转 + 晚间抵达，体力消耗大。抵达后直接入住酒店，10/4 再安排活动。'},
+ {date:'10/4',dow:'周日',title:'赫尔辛基 → 塔林 → 斯德哥尔摩邮轮',desc:'白天赫尔辛基，下午渡轮去塔林，晚上过夜邮轮',tags:['transfer','city'],distance:'—',outdoor:'2h',score:8.0,detail:'船班衔接是关键。赫尔辛基→塔林约 2 小时，塔林老城 3–4 小时，晚上登船去斯德哥尔摩。行李寄存与步行路线提前规划。'},
+ {date:'10/5',dow:'周一',title:'斯德哥尔摩 → 米兰',desc:'早晨邮轮抵达，下午飞回米兰，入住 MXP 周边',tags:['transfer','city'],distance:'短途',outdoor:'1h',score:7.2,detail:'邮轮早晨抵达后需入境、取行李、去机场。建议只安排机场附近的简单用餐与休息，确保次日国际返程不受影响。'},
  {date:'10/6',dow:'周二',title:'米兰 → 香港',desc:'11:40 经阿布扎比返程',tags:['transfer'],distance:'—',outdoor:'0h',score:6.9,detail:'提前抵达机场。返程中转仅1小时30分，尽量避免托运行李重新打包或临时购物拖延。'}
 ];
 let map,layers=[];
 function markerIcon(type,index){return L.divIcon({className:'',html:`<div class="custom-marker ${type}"><span>${index}</span></div>`,iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-28]})}
 function initMap(){
  map=L.map('map',{zoomControl:true,scrollWheelZoom:false}).setView([58,10],4);
- L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
+ const cartoDark=L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd'});
+ const osm=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'});
+ cartoDark.addTo(map);
+ cartoDark.on('tileerror',function(){if(!map.hasLayer(osm))osm.addTo(map);});
  renderRoute('optimized');
 }
 function renderRoute(key){
@@ -325,11 +357,11 @@ function renderDays(filter='all'){
 function updateDecision(){
  const ids=['scenery','driving','logistics','weather'];const values=ids.map(id=>+document.getElementById(id).value);const sum=values.reduce((a,b)=>a+b,0)||1;
  ids.forEach((id,i)=>document.querySelector(`#${id}+output`).textContent=values[i]+'%');
- const metrics=[9.4,8.9,6.4,5.8];const score=values.reduce((s,v,i)=>s+v*metrics[i],0)/sum;
+ const metrics=[8.8,8.2,6.2,5.8];const score=values.reduce((s,v,i)=>s+v*metrics[i],0)/sum;
  document.getElementById('decisionScore').innerHTML=`${score.toFixed(1)}<span>/10</span>`;
  const label=document.getElementById('decisionLabel'),text=document.getElementById('decisionText');
- if(score>=8){label.textContent='建议成行';text.textContent='这条路线与你的偏好高度匹配。建议删除斯德哥尔摩，锁定两段自驾，并给冰岛天气保留一天弹性。'}
- else if(score>=7){label.textContent='有条件成行';text.textContent='路线仍值得去，但需要进一步减少转场，或将冰岛改为非自驾小团，降低天气和驾驶压力。'}
+ if(score>=8){label.textContent='建议成行';text.textContent='这条路线与你的偏好高度匹配。关键控制点：9/28 纽尔维斯→冰岛的衔接、10/3 冰岛→赫尔辛基的红眼航班、以及 10/4 的连续渡轮。'}
+ else if(score>=7){label.textContent='有条件成行';text.textContent='路线仍值得去，但需要进一步减少转场。可考虑删除斯德哥尔摩/塔林段，或把冰岛改为非自驾小团，降低衔接压力。'}
  else{label.textContent='暂缓出票';text.textContent='当前权重更重视物流与天气稳定，建议改成单一国家深度游，例如只保留冰岛或只做波罗的海自驾。'}
 }
 document.getElementById('originalBtn').addEventListener('click',e=>{e.currentTarget.classList.add('active');document.getElementById('optimizedBtn').classList.remove('active');renderRoute('original')});
