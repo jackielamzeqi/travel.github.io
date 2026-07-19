@@ -28,7 +28,6 @@ h1{font-size:clamp(34px,6vw,68px);line-height:1.08;letter-spacing:-.04em;margin:
 .btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:11px 16px;border-radius:12px;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block}
 .btn:hover{transform:translateY(-1px);border-color:#4c6c62}
 .btn.primary{background:var(--green);border-color:var(--green);color:#072019;font-weight:700}
-.btn.active{background:var(--green);border-color:var(--green);color:#072019;font-weight:700}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0}
 .metric{padding:18px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(20,42,37,.96),rgba(12,26,23,.96));border-radius:16px}
 .metric .label{font-size:13px;color:var(--muted)}
@@ -39,15 +38,12 @@ h1{font-size:clamp(34px,6vw,68px);line-height:1.08;letter-spacing:-.04em;margin:
 .section-head h2{font-size:clamp(25px,3vw,38px);letter-spacing:-.03em;margin:0}
 .section-head p{color:var(--muted);margin:0;max-width:590px}
 .card{background:rgba(16,34,30,.9);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
-.route-switch{display:inline-flex;padding:4px;background:#091713;border:1px solid var(--line);border-radius:14px;gap:4px}
-.route-switch button{border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer}
-.route-switch button.active{background:var(--green);border-color:var(--green);color:#052019;font-weight:700}
 .day-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .day-chips button{border:1px solid var(--line);background:#0d1d19;color:var(--muted);padding:8px 11px;border-radius:12px;cursor:pointer;font-size:13px;line-height:1.25;text-align:center;transition:.15s}
 .day-chips button small{display:block;font-size:11px;opacity:.75}
 .day-chips button:hover{border-color:#4c6c62;color:var(--text)}
 .day-chips button.active{background:var(--green);border-color:var(--green);color:#052019;font-weight:700}
-.map-layout{display:grid;grid-template-columns:1.55fr .75fr;gap:16px}
+.map-layout{display:grid;grid-template-columns:1.55fr .75fr;gap:16px;align-items:start}
 #map{height:520px;border-radius:18px;background:#0c1a17}
 .map-card{overflow:hidden;position:relative}
 .map-legend{position:absolute;z-index:500;left:14px;bottom:14px;background:rgba(7,17,15,.9);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12px;color:#c9ddd6;backdrop-filter:blur(8px)}
@@ -67,14 +63,6 @@ h1{font-size:clamp(34px,6vw,68px);line-height:1.08;letter-spacing:-.04em;margin:
 .flight-step{display:grid;grid-template-columns:65px 1fr;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
 .flight-step:first-of-type{border-top:0}.flight-step time{font-weight:700}.flight-step small{display:block;color:var(--muted)}
 .notice{margin-top:14px;padding:12px;border-radius:12px;background:rgba(255,191,105,.09);border:1px solid rgba(255,191,105,.27);color:#ffe1b7;font-size:13px}
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.compare-card{padding:22px}
-.compare-card.recommended{border-color:rgba(85,214,167,.65);box-shadow:0 0 0 1px rgba(85,214,167,.12),var(--shadow)}
-.compare-top{display:flex;justify-content:space-between;gap:12px;align-items:start}
-.pill{font-size:12px;border:1px solid var(--line);padding:5px 9px;border-radius:999px;color:var(--muted)}
-.pill.good{color:#95e9c9;border-color:rgba(85,214,167,.4);background:rgba(85,214,167,.08)}
-.score-list{display:grid;gap:12px;margin-top:22px}
-.score-row{display:grid;grid-template-columns:92px 1fr 36px;gap:10px;align-items:center;font-size:13px}.track{height:9px;border-radius:99px;background:#203931;overflow:hidden}.fill{height:100%;border-radius:99px;background:var(--green)}
 .budget-card{padding:6px 10px;overflow-x:auto}
 .budget-table{width:100%;border-collapse:collapse;font-size:14px;min-width:680px}
 .budget-table th,.budget-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
@@ -105,8 +93,8 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 .leaflet-container{font-family:inherit}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10221e;color:#eef8f4}.leaflet-popup-content{margin:12px 14px}.leaflet-control-layers,.leaflet-bar a{background:#10221e;color:#eef8f4;border:1px solid var(--line)}.leaflet-control-attribution{background:rgba(7,17,15,.72);color:#7d9a90}.leaflet-control-attribution a{color:#99b8ad}.leaflet-tooltip{background:#10221e;color:#eef8f4;border:1px solid var(--line)}
 .custom-marker{width:30px;height:30px;border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;border:2px solid #dff9ef;box-shadow:0 4px 10px rgba(0,0,0,.35)}.custom-marker span{transform:rotate(45deg);font-size:11px;font-weight:800;color:#061a15}.custom-marker.drive{background:var(--green)}.custom-marker.flight{background:var(--blue)}.custom-marker.ferry{background:var(--amber)}
 .day-marker{width:38px;height:38px;border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;border:3px solid #fff;box-shadow:0 0 0 5px rgba(255,191,105,.3),0 6px 14px rgba(0,0,0,.45)}.day-marker span{transform:rotate(45deg);font-size:13px;font-weight:800;color:#061a15}.day-marker.drive{background:var(--green)}.day-marker.flight{background:var(--blue)}.day-marker.ferry{background:var(--amber)}
-@media(max-width:900px){.metrics{grid-template-columns:1fr 1fr}.map-layout,.decision-layout{grid-template-columns:1fr}.flight-grid,.compare-grid{grid-template-columns:1fr}.day-score{display:none}.risk-grid{grid-template-columns:1fr}.source-list{grid-template-columns:1fr}}
-@media(max-width:560px){.wrap{width:min(100% - 20px,1180px)}.hero{padding-top:34px}.metrics{grid-template-columns:1fr}.section{padding:22px 0}.section-head{display:block}.route-switch{margin-top:12px}.map-card{border-radius:15px}#map{height:430px}.flight-grid{gap:10px}.day-card{padding:14px}.decision-score{font-size:58px}.source-list{font-size:13px}}
+@media(max-width:900px){.metrics{grid-template-columns:1fr 1fr}.map-layout,.decision-layout{grid-template-columns:1fr}.flight-grid{grid-template-columns:1fr}.day-score{display:none}.risk-grid{grid-template-columns:1fr}.source-list{grid-template-columns:1fr}}
+@media(max-width:560px){.wrap{width:min(100% - 20px,1180px)}.hero{padding-top:34px}.metrics{grid-template-columns:1fr}.section{padding:22px 0}.section-head{display:block}.map-card{border-radius:15px}#map{height:430px}.flight-grid{gap:10px}.day-card{padding:14px}.decision-score{font-size:58px}.source-list{font-size:13px}}
 </style>
 </head>
 <body>
@@ -132,11 +120,7 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <div><h2>路线地图</h2><p>默认展示 2026 最终方案整体路线；点击下方天数按钮高亮当天目的地与交通，或切换查看原草案。</p></div>
-      <div class="route-switch" aria-label="路线方案切换">
-        <button id="originalBtn" type="button">原草案</button>
-        <button id="optimizedBtn" class="active" type="button">2026 最终方案</button>
-      </div>
+      <div><h2>路线地图</h2><p>点击下方天数按钮，高亮当天目的地与交通方案；右侧栏同步显示当日看点。</p></div>
     </div>
     <div class="day-chips" id="dayChips" aria-label="按天查看地图"></div>
     <div class="map-layout">
@@ -210,32 +194,6 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
         <span class="tag">区域 · 10月5日</span><h3>🇸🇪 斯德哥尔摩 → 🇮🇹 米兰 MXP</h3>
         <div class="flight-step"><time>上午</time><div>🇸🇪 斯德哥尔摩港口 / 机场<small>邮轮早晨抵达，预留入境与转机时间</small></div></div>
         <div class="flight-step"><time>下午</time><div>🇸🇪 斯德哥尔摩 ARN → 🇮🇹 米兰 MXP<small>区域航班待确认；务必在 10月5日傍晚前抵达米兰</small></div></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head"><div><h2>方案对比</h2><p>原草案国家更多、城市切换密度高；最终方案减少了波罗的海国家数量，但保留冰岛深度与波罗的海邮轮体验。</p></div></div>
-    <div class="compare-grid">
-      <article class="card compare-card">
-        <div class="compare-top"><div><h3>原多城市草案</h3><p style="color:var(--muted);margin:5px 0">🇮🇹 米兰 → 🇱🇹 维尔纽斯 → 🇱🇻 里加 → 🇪🇪 塔林 → 🇫🇮 赫尔辛基 → 🇮🇸 冰岛 → 🇸🇪 斯德哥尔摩</p></div><span class="pill">城市优先</span></div>
-        <div class="score-list">
-          <div class="score-row"><span>户外景观</span><div class="track"><div class="fill" style="width:76%"></div></div><b>7.6</b></div>
-          <div class="score-row"><span>自驾匹配</span><div class="track"><div class="fill" style="width:45%"></div></div><b>4.5</b></div>
-          <div class="score-row"><span>物流可控</span><div class="track"><div class="fill" style="width:58%"></div></div><b>5.8</b></div>
-          <div class="score-row"><span>旅行新鲜度</span><div class="track"><div class="fill" style="width:96%"></div></div><b>9.6</b></div>
-        </div>
-      </article>
-      <article class="card compare-card recommended">
-        <div class="compare-top"><div><h3>2026 最终方案</h3><p style="color:var(--muted);margin:5px 0">🇮🇹 米兰 → 🇱🇹 纽尔维斯 → 🇮🇸 冰岛 → 🇫🇮 赫尔辛基 → 🇪🇪 塔林 → 🇸🇪 斯德哥尔摩 → 🇮🇹 米兰</p></div><span class="pill good">推荐</span></div>
-        <div class="score-list">
-          <div class="score-row"><span>户外景观</span><div class="track"><div class="fill" style="width:88%"></div></div><b>8.8</b></div>
-          <div class="score-row"><span>自驾匹配</span><div class="track"><div class="fill" style="width:82%"></div></div><b>8.2</b></div>
-          <div class="score-row"><span>物流可控</span><div class="track"><div class="fill" style="width:62%"></div></div><b>6.2</b></div>
-          <div class="score-row"><span>旅行新鲜度</span><div class="track"><div class="fill" style="width:92%"></div></div><b>9.2</b></div>
-        </div>
       </article>
     </div>
   </div>
@@ -340,27 +298,17 @@ footer{padding:36px 0 54px;color:var(--muted);font-size:13px}.footer-row{border-
 
 <script src="./vendor/leaflet/leaflet.js"></script>
 <script>
-const routes={
- original:{title:'原多城市草案',score:'6.8 / 10',transfers:'8 次核心转场',outdoor:'约 42% 户外内容',points:[
-  {name:'🇮🇹 米兰',date:'9/25',lat:45.4642,lng:9.19,type:'flight',note:'落地休整与城市体验'},
-  {name:'🇱🇹 维尔纽斯',date:'9/26',lat:54.6872,lng:25.2797,type:'flight',note:'单日城市停留'},
-  {name:'🇱🇻 里加',date:'9/27',lat:56.9496,lng:24.1052,type:'drive',note:'老城与市场'},
-  {name:'🇪🇪 塔林',date:'9/28',lat:59.437,lng:24.7536,type:'drive',note:'中世纪老城'},
-  {name:'🇫🇮 赫尔辛基',date:'9/29',lat:60.1699,lng:24.9384,type:'ferry',note:'短暂停留'},
-  {name:'🇮🇸 雷克雅未克',date:'9/30–10/2',lat:64.1466,lng:-21.9426,type:'flight',note:'冰岛时间偏短'},
-  {name:'🇸🇪 斯德哥尔摩',date:'10/3–4',lat:59.3293,lng:18.0686,type:'flight',note:'新增一次大转场'},
-  {name:'🇮🇹 米兰',date:'10/5',lat:45.4642,lng:9.19,type:'flight',note:'返程缓冲'}]},
- optimized:{title:'2026 最终方案',score:'8.0 / 10',transfers:'6 次核心转场',outdoor:'约 65% 户外内容',points:[
-  {name:'🇮🇹 米兰 MXP',date:'9/25',day:2,lat:45.6306,lng:8.7281,type:'flight',note:'香港飞抵，取车或城市休整'},
-  {name:'🇱🇹 纽尔维斯（库尔斯沙嘴）',date:'9/26–27',day:3,lat:55.3035,lng:21.0036,type:'drive',note:'飞维尔纽斯/考纳斯后自驾约 320 km；沙丘、森林与海岸'},
-  {name:'🇮🇸 雷克雅未克 KEF',date:'9/28',day:5,lat:64.1466,lng:-21.9426,type:'flight',note:'9/28 下午从维尔纽斯起飞，当晚抵达冰岛'},
-  {name:'🇮🇸 黄金圈 / Selfoss',date:'9/29',day:6,lat:64.2559,lng:-21.129,type:'drive',note:'辛格韦德利、间歇泉、黄金瀑布'},
-  {name:'🇮🇸 维克 / 南岸',date:'9/30',day:7,lat:63.4186,lng:-19.006,type:'drive',note:'Seljalandsfoss、Skógafoss、黑沙滩'},
-  {name:'🇮🇸 杰古沙龙冰河湖',date:'10/1–2',day:8,lat:64.0784,lng:-16.2306,type:'drive',note:'冰川、钻石沙滩与东南部海岸'},
-  {name:'🇫🇮 赫尔辛基 HEL',date:'10/3',day:10,lat:60.1699,lng:24.9384,type:'flight',note:'凌晨从 KEF 起飞，中转 12 小时，20:40 抵达'},
-  {name:'🇪🇪 塔林',date:'10/4',day:11,lat:59.437,lng:24.7536,type:'ferry',note:'赫尔辛基→塔林约 2 小时渡轮，老城半日'},
-  {name:'🇸🇪 斯德哥尔摩',date:'10/5',day:12,lat:59.3293,lng:18.0686,type:'ferry',note:'10/4 晚上塔林过夜邮轮，次日早晨抵达'},
-  {name:'🇮🇹 米兰 MXP',date:'10/5',day:12,lat:45.6306,lng:8.7281,type:'flight',note:'下午飞回米兰，10/6 国际返程缓冲'}]}
+const routeData={title:'2026 最终方案',score:'8.0 / 10',transfers:'6 次核心转场',outdoor:'约 65% 户外内容',points:[
+ {name:'🇮🇹 米兰 MXP',date:'9/25',day:2,lat:45.6306,lng:8.7281,type:'flight',note:'香港飞抵，取车或城市休整'},
+ {name:'🇱🇹 纽尔维斯（库尔斯沙嘴）',date:'9/26–27',day:3,lat:55.3035,lng:21.0036,type:'drive',note:'飞维尔纽斯/考纳斯后自驾约 320 km；沙丘、森林与海岸'},
+ {name:'🇮🇸 雷克雅未克 KEF',date:'9/28',day:5,lat:64.1466,lng:-21.9426,type:'flight',note:'9/28 下午从维尔纽斯起飞，当晚抵达冰岛'},
+ {name:'🇮🇸 黄金圈 / Selfoss',date:'9/29',day:6,lat:64.2559,lng:-21.129,type:'drive',note:'辛格韦德利、间歇泉、黄金瀑布'},
+ {name:'🇮🇸 维克 / 南岸',date:'9/30',day:7,lat:63.4186,lng:-19.006,type:'drive',note:'Seljalandsfoss、Skógafoss、黑沙滩'},
+ {name:'🇮🇸 杰古沙龙冰河湖',date:'10/1–2',day:8,lat:64.0784,lng:-16.2306,type:'drive',note:'冰川、钻石沙滩与东南部海岸'},
+ {name:'🇫🇮 赫尔辛基 HEL',date:'10/3',day:10,lat:60.1699,lng:24.9384,type:'flight',note:'凌晨从 KEF 起飞，中转 12 小时，20:40 抵达'},
+ {name:'🇪🇪 塔林',date:'10/4',day:11,lat:59.437,lng:24.7536,type:'ferry',note:'赫尔辛基→塔林约 2 小时渡轮，老城半日'},
+ {name:'🇸🇪 斯德哥尔摩',date:'10/5',day:12,lat:59.3293,lng:18.0686,type:'ferry',note:'10/4 晚上塔林过夜邮轮，次日早晨抵达'},
+ {name:'🇮🇹 米兰 MXP',date:'10/5',day:12,lat:45.6306,lng:8.7281,type:'flight',note:'下午飞回米兰，10/6 国际返程缓冲'}]
 };
 const days=[
  {date:'9/24',dow:'周四',title:'🇭🇰 香港出发',desc:'20:10 起飞，经 🇦🇪 阿布扎比前往 🇮🇹 米兰',tags:['transfer'],distance:'—',outdoor:'0h',score:6.8,detail:'长途飞行日。重点不是安排体验，而是降低睡眠债，为9月25日落地后的行程预留精力。'},
@@ -392,7 +340,7 @@ const dayPlan=[
  {day:12,date:'10/5',title:'🇸🇪 斯德哥尔摩 → 🇮🇹 米兰',transport:'邮轮晨抵后入境转机，下午 ARN→MXP 航班',spot:'只安排机场附近休整，确保次日国际返程。',points:[{name:'🇸🇪 斯德哥尔摩 ARN',lat:59.3293,lng:18.0686,type:'flight'},{name:'🇮🇹 米兰 MXP',lat:45.6306,lng:8.7281,type:'flight',note:'傍晚前抵达'}],legs:[{pts:[[59.3293,18.0686],[45.6306,8.7281]],type:'flight',label:'ARN→MXP'}]},
  {day:13,date:'10/6',title:'🇮🇹 米兰 → 🇭🇰 香港',transport:'EY82：米兰 11:40 → 阿布扎比 19:40；EY870：21:10 → 香港 09:00（+1）',spot:'返程日；中转仅 1h30m，避免临时购物拖延。',points:[{name:'🇮🇹 米兰 MXP',lat:45.6306,lng:8.7281,type:'flight'},{name:'🇦🇪 阿布扎比 AUH',lat:24.453,lng:54.377,type:'flight'},{name:'🇭🇰 香港 HKG',lat:22.308,lng:113.9185,type:'flight',note:'10/7 09:00 抵达'}],legs:[{pts:[[45.6306,8.7281],[24.453,54.377]],type:'flight',label:'EY82 米兰→阿布扎比'},{pts:[[24.453,54.377],[22.308,113.9185]],type:'flight',label:'EY870 阿布扎比→香港'}]}
 ];
-let map,routeLayers=[],dayHL=[],currentRoute='optimized';
+let map,routeLayers=[],dayHL=[];
 const COLORS={drive:'#55d6a7',flight:'#63a8ff',ferry:'#ffbf69'};
 const DASH={flight:'8 8',ferry:'4 7',drive:null};
 function markerIcon(type,index){return L.divIcon({className:'',html:`<div class="custom-marker ${type}"><span>${index}</span></div>`,iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-28]})}
@@ -407,7 +355,7 @@ function initMap(){
  let fellBack=false;
  gaode.on('tileerror',function(){if(!fellBack&&map.hasLayer(gaode)){fellBack=true;map.removeLayer(gaode);osm.addTo(map);}});
  renderChips();
- renderRoute('optimized');
+ renderRoute();
  const hashDay=location.hash.match(/day=(\d{1,2})/);
  if(hashDay)selectDay(+hashDay[1]);
 }
@@ -416,19 +364,11 @@ function renderChips(){
  chips.innerHTML='<button type="button" data-day="all" class="active">全部路线</button>'+dayPlan.map(d=>`<button type="button" data-day="${d.day}">第${d.day}天<small>${d.date}</small></button>`).join('');
  chips.addEventListener('click',e=>{
   const btn=e.target.closest('button');if(!btn)return;
-  if(currentRoute!=='optimized')setRoute('optimized');
   selectDay(btn.dataset.day==='all'?null:+btn.dataset.day);
  });
 }
-function setRoute(key){
- currentRoute=key;
- document.getElementById('originalBtn').classList.toggle('active',key==='original');
- document.getElementById('optimizedBtn').classList.toggle('active',key==='optimized');
- renderRoute(key);
- selectDay(null);
-}
-function renderRoute(key){
- const data=routes[key];
+function renderRoute(){
+ const data=routeData;
  routeLayers.forEach(l=>map.removeLayer(l));routeLayers=[];
  const list=document.getElementById('routeList');list.innerHTML='';
  data.points.forEach((p,i)=>{
@@ -452,7 +392,7 @@ function selectDay(n){
  const summary=document.getElementById('routeSummary'),info=document.getElementById('dayInfo');
  if(n===null){
   summary.style.display='contents';info.style.display='none';
-  const data=routes[currentRoute];
+  const data=routeData;
   map.flyToBounds(L.latLngBounds(data.points.map(p=>[p.lat,p.lng])),{padding:[32,32]});
   return;
  }
@@ -490,12 +430,9 @@ function updateDecision(){
  else if(score>=7){label.textContent='有条件成行';text.textContent='路线仍值得去，但需要进一步减少转场。可考虑删除斯德哥尔摩/塔林段，或把冰岛改为非自驾小团，降低衔接压力。'}
  else{label.textContent='暂缓出票';text.textContent='当前权重更重视物流与天气稳定，建议改成单一国家深度游，例如只保留冰岛或只做波罗的海自驾。'}
 }
-document.getElementById('originalBtn').addEventListener('click',()=>setRoute('original'));
-document.getElementById('optimizedBtn').addEventListener('click',()=>setRoute('optimized'));
 document.getElementById('backToRoute').addEventListener('click',()=>selectDay(null));
 document.getElementById('timeline').addEventListener('click',e=>{
  const btn=e.target.closest('.chip-map');if(!btn||!map)return;
- if(currentRoute!=='optimized')setRoute('optimized');
  selectDay(+btn.dataset.day);
  document.getElementById('map').scrollIntoView({behavior:'smooth',block:'center'});
 });
